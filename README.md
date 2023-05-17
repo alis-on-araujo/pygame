@@ -1,2 +1,3 @@
 # pygame
-grupo: Rodrigo, Rafa e Thais 
+grupo: Rodrigo, Rafaela e Thais 
+
