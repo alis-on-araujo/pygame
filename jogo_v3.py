@@ -24,20 +24,20 @@ class Passaro(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, largura-passaro_largura)
-        self.rect.y = random.randint (-100, -passaro_altura)
-        self.speedx = random.randint(-3, 3)
-        self.speedy = random.randint(2,9)
+        self.rect.x = largura
+        self.rect.y = random.randint (5, 550)
+        self.speedx = random.randint(-10, -6)
+        self.speedy = 0
     
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
 
-        if self.rect.top > altura or self.rect.right < 0 or self.rect.left > largura:
-            self.rect.x = random.randint(0, largura-passaro_largura)
-            self.rect.y = random.randint (-100, -passaro_altura)
-            self.speedx = random.randint(-3, 3)
-            self.speedy = random.randint(2,9)
+        if self.rect.right < 0 or self.rect.left > largura:
+            self.rect.x = largura
+            self.rect.y = random.randint (5, 550)
+            self.speedx = random.randint(-10, -6)
+            self.speedy = 0
 
 
 #inicia estruturas
@@ -48,6 +48,8 @@ FPS = 30
 
 passaro1 = Passaro(passaro_img)
 passaro2 = Passaro(passaro_img)
+passaro3 = Passaro(passaro_img)
+passaro4 = Passaro(passaro_img)
 
 while game:
     clock.tick(FPS)
@@ -58,6 +60,8 @@ while game:
     
     passaro1.update()
     passaro2.update()
+    passaro3.update()
+    passaro4.update()
 
 
 #gera fundo
@@ -66,6 +70,8 @@ while game:
     window.blit(fundo, (0, 0))
     window.blit(passaro1.image, passaro1.rect)
     window.blit(passaro2.image, passaro2.rect)
+    window.blit(passaro3.image, passaro3.rect)
+    window.blit(passaro4.image, passaro4.rect)
 
     pygame.display.update()
 
