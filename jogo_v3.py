@@ -46,10 +46,11 @@ game = True
 clock = pygame.time.Clock()
 FPS = 30
 
-passaro1 = Passaro(passaro_img)
-passaro2 = Passaro(passaro_img)
-passaro3 = Passaro(passaro_img)
-passaro4 = Passaro(passaro_img)
+todospassaros = pygame.sprite.Group()
+
+for i in range(10):
+    passaro = Passaro(passaro_img)
+    todospassaros.add(passaro)
 
 while game:
     clock.tick(FPS)
@@ -58,21 +59,14 @@ while game:
         if event.type == pygame.QUIT:
             game = False
     
-    passaro1.update()
-    passaro2.update()
-    passaro3.update()
-    passaro4.update()
+    todospassaros.update()
 
 
 #gera fundo
 
     window.fill((0, 0, 0))  # Preenche com a cor branca
     window.blit(fundo, (0, 0))
-    window.blit(passaro1.image, passaro1.rect)
-    window.blit(passaro2.image, passaro2.rect)
-    window.blit(passaro3.image, passaro3.rect)
-    window.blit(passaro4.image, passaro4.rect)
-
+    todospassaros.draw(window)
     pygame.display.update()
 
 
