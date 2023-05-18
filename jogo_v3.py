@@ -12,14 +12,16 @@ pygame.display.set_caption('UP Challenge')
 #Gera passaros
 passaro_largura = 50
 passaro_altura = 38
-passaro_img = pygame.image.load('imagens/passaro.gif').convert_alpha()
-passaro_img_small = pygame.transform.scale(passaro_img, (passaro_largura, passaro_altura))
+font = pygame.font.SysFont(None, 48)
 fundo = pygame.image.load('imagens/ceu_azul.jpg').convert()
 fundo = pygame.transform.scale(fundo, (700, 850))
+passaro_img = pygame.image.load('imagens/passaro.gif').convert_alpha()
+passaro_img = pygame.transform.scale(passaro_img, (passaro_largura, passaro_altura))
+
 
 class Passaro(pygame.sprite.Sprite):
     def __init__(self, img):
-        pygame.sprite.Sprite__init__(self)
+        pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, largura-passaro_largura)
