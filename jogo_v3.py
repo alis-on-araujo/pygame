@@ -25,7 +25,7 @@ class Passaro(pygame.sprite.Sprite):
         self.image = img
         self.rect = self.image.get_rect()
         self.rect.x = largura
-        self.rect.y = random.randint (5, 550)
+        self.rect.y = random.randint (5, 750)
         self.speedx = random.randint(-10, -6)
         self.speedy = 0
     
@@ -35,7 +35,7 @@ class Passaro(pygame.sprite.Sprite):
 
         if self.rect.right < 0 or self.rect.left > largura:
             self.rect.x = largura
-            self.rect.y = random.randint (5, 550)
+            self.rect.y = random.randint (5, 750)
             self.speedx = random.randint(-10, -6)
             self.speedy = 0
 
@@ -48,7 +48,7 @@ FPS = 30
 
 todospassaros = pygame.sprite.Group()
 
-for i in range(10):
+for i in range(8):
     passaro = Passaro(passaro_img)
     todospassaros.add(passaro)
 
