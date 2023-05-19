@@ -11,8 +11,8 @@ window = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('UP Challenge')
 
 # Gera passaros
-passaro_largura = 40
-passaro_altura = 28
+passaro_largura = 30
+passaro_altura = 20
 casa_largura = 80
 casa_altura = 200
 font = pygame.font.SysFont(None, 48)
