@@ -10,10 +10,10 @@ window = pygame.display.set_mode ((largura, altura))
 pygame.display.set_caption('UP Challenge')
 
 #Gera passaros
-passaro_largura = 40
-passaro_altura = 28
-casa_largura = 150
-casa_altura = 290
+passaro_largura = 35
+passaro_altura = 22
+casa_largura = 100
+casa_altura = 240
 font = pygame.font.SysFont(None, 48)
 fundo = pygame.image.load('imagens/ceu_azul.jpg').convert()
 fundo = pygame.transform.scale(fundo, (700, 850))
