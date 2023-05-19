@@ -39,8 +39,17 @@ class Casa(pygame.sprite.Sprite):
         # Mantem dentro da tela
         if self.rect.right > largura:
             self.rect.right = largura
+
         if self.rect.left < 0:
             self.rect.left = 0
+
+        if self.rect.top < 0:
+            self.rect.top = 0
+            
+
+        if self.rect.bottom > altura:
+            self.rect.bottom = altura
+            
             
 
 class Passaro(pygame.sprite.Sprite):
@@ -57,11 +66,16 @@ class Passaro(pygame.sprite.Sprite):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
 
+        
+        
         if self.rect.right < 0 or self.rect.left > largura:
             self.rect.x = largura
             self.rect.y = random.randint (5, 750)
             self.speedx = random.randint(-10, -6)
             self.speedy = 0
+        
+        
+
 
 
 #inicia estruturas
