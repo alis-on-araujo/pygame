@@ -30,15 +30,18 @@ class Casa(pygame.sprite.Sprite):
         self.rect.centerx = largura/2
         self.rect.bottom = altura-10
         self.speedx = 0
+        self.speedy = 0 
 
     def update(self):
         self.rect.x += self.speedx
+        self.rect.y += self.speedy
 
         # Mantem dentro da tela
         if self.rect.right > largura:
             self.rect.right = largura
         if self.rect.left < 0:
             self.rect.left = 0
+            
 
 class Passaro(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -83,6 +86,34 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                jogador.speedx -= 10
+            if event.key == pygame.K_RIGHT:
+                jogador.speedx += 10
+            if event.key == pygame.K_UP:
+                jogador.speedy -= 10
+            if event.key == pygame.K_DOWN:
+                jogador.speedy += 10
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                jogador.speedx += 10
+            if event.key == pygame.K_RIGHT:
+                jogador.speedx -= 10
+            if event.key == pygame.K_UP:
+                jogador.speedy += 10
+            if event.key == pygame.K_DOWN:
+                jogador.speedy -= 10
+
+        
+    jogador.rect.x += jogador.speedx
+    jogador.rect.y += jogador.speedy 
+
+        
+
+
     
     todospassaros.update()
 
