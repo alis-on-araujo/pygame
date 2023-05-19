@@ -10,8 +10,8 @@ window = pygame.display.set_mode ((largura, altura))
 pygame.display.set_caption('UP Challenge')
 
 #Gera passaros
-passaro_largura = 35
-passaro_altura = 22
+passaro_largura = 40
+passaro_altura = 28
 casa_largura = 100
 casa_altura = 240
 font = pygame.font.SysFont(None, 48)
@@ -71,18 +71,18 @@ clock = pygame.time.Clock()
 FPS = 30
 
 todospassaros = pygame.sprite.Group()
+todospassaros2 = pygame.sprite.Group()
 
 jogador = Casa(casa_img)
-
 todospassaros.add(jogador)
 
-for i in range(8):
+for i in range(5):
     passaro = Passaro(passaro_img)
     todospassaros.add(passaro)
+    todospassaros2.add(passaro)
 
 while game:
     clock.tick(FPS)
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
@@ -116,6 +116,10 @@ while game:
 
     
     todospassaros.update()
+
+    hits = pygame.sprite.spritecollide(jogador, todospassaros2, True)
+    if len(hits)>0:
+        game = False
 
 
 #gera fundo
