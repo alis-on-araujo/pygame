@@ -79,6 +79,7 @@ game = True
 clock = pygame.time.Clock()
 FPS = 30
 
+
 todospassaros = pygame.sprite.Group()
 todospassaros2 = pygame.sprite.Group()
 
@@ -89,31 +90,38 @@ timer = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
 
-while game:
+DONE = 0
+PLAYING = 1
+EXPLODING = 2
+state = PLAYING
+
+while state!= DONE:
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            game = False
+            state = DONE
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                jogador.speedx -= 10
-            if event.key == pygame.K_RIGHT:
-                jogador.speedx += 10
-            if event.key == pygame.K_UP:
-                jogador.speedy -= 10
-            if event.key == pygame.K_DOWN:
-                jogador.speedy += 10
+        if state == PLAYING:
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                jogador.speedx += 10
-            if event.key == pygame.K_RIGHT:
-                jogador.speedx -= 10
-            if event.key == pygame.K_UP:
-                jogador.speedy += 10
-            if event.key == pygame.K_DOWN:
-                jogador.speedy -= 10
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    jogador.speedx -= 10
+                if event.key == pygame.K_RIGHT:
+                    jogador.speedx += 10
+                if event.key == pygame.K_UP:
+                    jogador.speedy -= 10
+                if event.key == pygame.K_DOWN:
+                    jogador.speedy += 10
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT:
+                    jogador.speedx += 10
+                if event.key == pygame.K_RIGHT:
+                    jogador.speedx -= 10
+                if event.key == pygame.K_UP:
+                    jogador.speedy += 10
+                if event.key == pygame.K_DOWN:
+                    jogador.speedy -= 10
 
     # Verifica o tempo decorrido
     current_time = time.time() - start_time
@@ -136,9 +144,10 @@ while game:
 
     todospassaros.update()
 
-    hits = pygame.sprite.spritecollide(jogador, todospassaros2, True)
-    if len(hits)>0:
-        game = False
+    if state == PLAYING:
+        hits = pygame.sprite.spritecollide(jogador, todospassaros2, True)
+        if len(hits)>0:
+            game = False
 
     window.blit(fundo, (0, 0))
     todospassaros.draw(window)
