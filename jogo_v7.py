@@ -1,7 +1,6 @@
 import pygame
 import random
 import time
-from os import path
 
 pygame.init()
 
@@ -14,23 +13,15 @@ pygame.display.set_caption('UP Challenge')
 # Gera passaros
 passaro_largura = 30
 passaro_altura = 20
-passaro_img = pygame.image.load('imagens/passaro.gif').convert_alpha()
-passaro_img = pygame.transform.scale(passaro_img, (passaro_largura, passaro_altura))
-
-# Gera casa
 casa_largura = 80
 casa_altura = 200
-casa_img = pygame.image.load('imagens/casa.png').convert_alpha()
-casa_img = pygame.transform.scale(casa_img, (casa_largura, casa_altura))
-
-
-
-# Gera fundo
+font = pygame.font.SysFont(None, 48)
 fundo = pygame.image.load('imagens/ceu_azul.jpg').convert()
 fundo = pygame.transform.scale(fundo, (700, 850))
-fundo_rect = fundo.get_rect()
-
-font = pygame.font.SysFont(None, 48)
+passaro_img = pygame.image.load('imagens/passaro.gif').convert_alpha()
+passaro_img = pygame.transform.scale(passaro_img, (passaro_largura, passaro_altura))
+casa_img = pygame.image.load('imagens/casa.png').convert_alpha()
+casa_img = pygame.transform.scale(casa_img, (casa_largura, casa_altura))
 
 
 class Casa(pygame.sprite.Sprite):
@@ -98,13 +89,7 @@ timer = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
 
-
-
-
-    
-
 while game:
-        
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -129,7 +114,6 @@ while game:
                 jogador.speedy += 10
             if event.key == pygame.K_DOWN:
                 jogador.speedy -= 10
-
 
     # Verifica o tempo decorrido
     current_time = time.time() - start_time
@@ -156,35 +140,6 @@ while game:
     if len(hits)>0:
         game = False
 
-    # Atualiza a posição da imagem de fundo.
-    fundo_rect.y -= jogador.speedy
-    # Se o fundo saiu da janela, faz ele voltar para dentro.
-    # Verifica se o fundo saiu para a esquerda
-    if fundo_rect.bottom < 0:
-        fundo_rect.y += fundo_rect.height
-    # Verifica se o fundo saiu para a direita
-    if fundo_rect.top >= altura:
-        fundo_rect.y -= fundo_rect.height
-
-        
-    # A cada loop, redesenha o fundo e os sprites
-    window.fill(0,0,0)
-
-    # Desenha o fundo e uma cópia para a direita.
-    # Assumimos que a imagem selecionada ocupa pelo menos o tamanho da janela.
-    # Além disso, ela deve ser cíclica, ou seja, o lado esquerdo deve ser continuação do direito.
-    window.blit(fundo, fundo_rect)
-    # Desenhamos a imagem novamente, mas deslocada em x.
-    fundo_rect2 = fundo_rect.copy()
-    if fundo_rect.bottom > 0:
-        # Precisamos desenhar o fundo à esquerda
-            fundo_rect2.y -= fundo_rect2.height
-    else:
-        # Precisamos desenhar o fundo à direita
-        fundo_rect2.y += fundo_rect2.height
-    window.blit(fundo, fundo_rect2)
-
-       
     window.blit(fundo, (0, 0))
     todospassaros.draw(window)
     pygame.display.flip()
