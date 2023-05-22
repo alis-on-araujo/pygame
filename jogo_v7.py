@@ -98,15 +98,16 @@ while game:
         if event.type == pygame.QUIT:
             game = False
 
+        
+        
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 jogador.speedx -= 10
             if event.key == pygame.K_RIGHT:
                 jogador.speedx += 10
             if event.key == pygame.K_UP:
-                jogador.speedy -= 10
-            if event.key == pygame.K_DOWN:
-                jogador.speedy += 10
+                jogador.speedy -= 4
+            
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -114,9 +115,9 @@ while game:
             if event.key == pygame.K_RIGHT:
                 jogador.speedx -= 10
             if event.key == pygame.K_UP:
-                jogador.speedy += 10
-            if event.key == pygame.K_DOWN:
-                jogador.speedy -= 10
+                jogador.speedy += 6
+            
+            
 
     # Verifica o tempo decorrido
     current_time = time.time() - start_time
