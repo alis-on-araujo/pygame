@@ -277,7 +277,11 @@ while game:
         game = False
 
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
-    if hits_2:
+    for hit in hits_2:
+        for i in range(1):
+            estrela = Estrela(estrela_img)
+            todospassaros.add(estrela)
+            todasestrelas.add(estrela)
         som_estrela.play()
    
 
