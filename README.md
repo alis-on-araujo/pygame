@@ -1,6 +1,6 @@
 # pygame
 
-Título: pygame Up Challeng
+Título: Pygame Up Challeng
 
 Integrantes do grupo:
 Rafaela Alexandre
