@@ -128,7 +128,7 @@ class Estrela(pygame.sprite.Sprite):
         self.rect.x = random.randint(0, largura)  # Posição x aleatória dentro da largura da tela
         self.rect.y = random.randint(-500, -50)  # Posição y aleatória acima da tela
         self.speedx = 0
-        self.speedy = random.randint(2, 6)  # Velocidade vertical aleatória para a estrela cair
+        self.speedy = random.randint(6, 10)  # Velocidade vertical aleatória para a estrela cair
 
     def update(self):
         self.rect.x += self.speedx
@@ -245,7 +245,7 @@ while game:
     todospassaros.update()
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
-    
+
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
     if len(hits) > 0:
         game = False
