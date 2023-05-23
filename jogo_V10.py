@@ -22,13 +22,13 @@ passaro_img = pygame.image.load('imagens/passaro.gif').convert_alpha()
 passaro_img = pygame.transform.scale(passaro_img, (passaro_largura, passaro_altura))
 
 # Gera casa
-casa_largura = 60
+casa_largura = 80
 casa_altura = 80
 casa_img = pygame.image.load('imagens/casa_sem_balões.png').convert_alpha()
 casa_img = pygame.transform.scale(casa_img, (casa_largura, casa_altura))
 
 #Gera Balões
-balões_largura= 60
+balões_largura= 80
 balões_altura=120
 balões_img = pygame.image.load('imagens/balões.png').convert_alpha()
 balões_img = pygame.transform.scale(balões_img, (balões_largura, balões_altura))
@@ -95,8 +95,8 @@ class Balões(pygame.sprite.Sprite):
         if self.rect.top < 0:
             self.rect.top = 0
 
-        if self.rect.bottom > altura - 60:
-            self.rect.bottom = altura - 60
+        if self.rect.bottom > altura - 55:
+            self.rect.bottom = altura - 55
 
 
 class Passaro(pygame.sprite.Sprite):
