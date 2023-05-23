@@ -65,8 +65,8 @@ class Casa(pygame.sprite.Sprite):
         if self.rect.left < 0:
             self.rect.left = 0
 
-        if self.rect.top < 0:
-            self.rect.top = 0
+        if self.rect.top < 100:
+            self.rect.top = 100
 
         if self.rect.bottom > altura:
             self.rect.bottom = altura
@@ -95,8 +95,8 @@ class Balões(pygame.sprite.Sprite):
         if self.rect.top < 0:
             self.rect.top = 0
 
-        if self.rect.bottom > altura:
-            self.rect.bottom = altura
+        if self.rect.bottom > altura - 60:
+            self.rect.bottom = altura - 60
 
 
 class Passaro(pygame.sprite.Sprite):
