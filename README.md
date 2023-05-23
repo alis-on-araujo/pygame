@@ -23,6 +23,9 @@ Fundo(ceu azul): https://br.freepik.com/vetores-gratis/mao-desenhada-nuvem-na-co
 Estrela:https://www.dlf.pt/ddetail/hxiJRbm_warming-ways-for-winter-disney-up-house/ 
 Pássaro: https://www.icone-gif.com/gif/oiseaux/corbeaux/corbeau024.gif
 
+ATENÇÃO:
+O handout do Pygame de Design de Softwar(2023-1) foi utilizado como inspiração para criar este Pygame.
+
 
 
 
