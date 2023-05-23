@@ -251,7 +251,7 @@ while game:
         game = False
 
     # Movimento do fundo
-    fundo_rect.y += 3
+    fundo_rect.y += 2
 
     # Se o fundo saiu da janela, faz ele voltar para cima
     if fundo_rect.top > altura:
