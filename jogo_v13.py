@@ -18,6 +18,10 @@ font = pygame.font.SysFont(None, 48)
 
 #Carrega sons
 som_fundo = pygame.mixer.Sound('audio/Married Life.mp3')
+som_fundo.set_volume(0.5) 
+som_fundo.play(loops=-1)
+som_estrela = pygame.mixer.Sound('audio/estrela_som.mp3')
+
 
 # Gera passaros
 passaro_largura = 30
@@ -167,6 +171,7 @@ jogador_balões = Balões(balões_img)
 todospassaros.add(jogador)
 todospassaros.add(jogador_balões)
 
+
 timer = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
@@ -174,7 +179,6 @@ score = 0
 
 
 while game:
-    som_fundo.play(loops=-1)
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -269,12 +273,13 @@ while game:
     todospassaros.update()
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
-
-
-
-    hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
     if len(hits) > 0:
         game = False
+
+    hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
+    if hits_2:
+        som_estrela.play()
+   
 
     # Movimento do fundo
     fundo_rect.y += 2

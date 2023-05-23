@@ -13,6 +13,7 @@ Thais Sabaini
 
 Áudios:
 Married Life(música de fundo): https://www.youtube.com/watch?v=2rn-vMbFglI
+Estrela (sound effect): https://www.youtube.com/watch?v=w_sYRVklQ58 
 
 
 Imagens:
@@ -25,6 +26,7 @@ Fundo(ceu azul): https://br.freepik.com/vetores-gratis/mao-desenhada-nuvem-na-co
 Estrela:https://www.dlf.pt/ddetail/hxiJRbm_warming-ways-for-winter-disney-up-house/ 
 
 Pássaro: https://www.icone-gif.com/gif/oiseaux/corbeaux/corbeau024.gif
+
 
 
 
