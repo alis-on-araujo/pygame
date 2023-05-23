@@ -4,6 +4,7 @@ import time
 from config import YELLOW
 
 pygame.init()
+pygame.mixer.init()
 
 # Gerar tela principal
 largura = 700
@@ -14,6 +15,9 @@ pygame.display.set_caption('UP Challenge')
 
 
 font = pygame.font.SysFont(None, 48)
+
+#Carrega sons
+som_fundo = pygame.mixer.Sound('audio/Married Life.mp3')
 
 
 # Gera passaros
@@ -169,6 +173,7 @@ start_time = time.time()  # Tempo inicial do jogo
 score = 0 
 
 while game:
+    som_fundo.play(loops=-1)
     clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
