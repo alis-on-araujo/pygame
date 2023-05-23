@@ -13,16 +13,19 @@ pygame.display.set_caption('UP Challenge')
 # Gera passaros
 passaro_largura = 30
 passaro_altura = 20
-casa_largura = 80
-casa_altura = 200
-font = pygame.font.SysFont(None, 48)
-fundo = pygame.image.load('imagens/ceu_azul.jpg').convert()
-fundo = pygame.transform.scale(fundo, (700, 850))
 passaro_img = pygame.image.load('imagens/passaro.gif').convert_alpha()
 passaro_img = pygame.transform.scale(passaro_img, (passaro_largura, passaro_altura))
+
+# Gera casa
+casa_largura = 80
+casa_altura = 200
 casa_img = pygame.image.load('imagens/casa.png').convert_alpha()
 casa_img = pygame.transform.scale(casa_img, (casa_largura, casa_altura))
 
+# Gera fundo
+fundo = pygame.image.load('imagens/ceu_azul1.jpg').convert()
+fundo = pygame.transform.scale(fundo, (700, 850))
+fundo_rect = fundo.get_rect()
 
 class Casa(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -85,7 +88,7 @@ todospassaros2 = pygame.sprite.Group()
 jogador = Casa(casa_img)
 todospassaros.add(jogador)
 
-timer = 0 
+timer = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
 
@@ -95,15 +98,16 @@ while game:
         if event.type == pygame.QUIT:
             game = False
 
+        
+        
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 jogador.speedx -= 10
             if event.key == pygame.K_RIGHT:
                 jogador.speedx += 10
             if event.key == pygame.K_UP:
-                jogador.speedy -= 10
-            if event.key == pygame.K_DOWN:
-                jogador.speedy += 10
+                jogador.speedy -= 4
+            
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -111,9 +115,9 @@ while game:
             if event.key == pygame.K_RIGHT:
                 jogador.speedx -= 10
             if event.key == pygame.K_UP:
-                jogador.speedy += 10
-            if event.key == pygame.K_DOWN:
-                jogador.speedy -= 10
+                jogador.speedy += 6
+            
+            
 
     # Verifica o tempo decorrido
     current_time = time.time() - start_time
@@ -137,10 +141,22 @@ while game:
     todospassaros.update()
 
     hits = pygame.sprite.spritecollide(jogador, todospassaros2, True)
-    if len(hits)>0:
+    if len(hits) > 0:
         game = False
 
-    window.blit(fundo, (0, 0))
+    # Movimento do fundo
+    fundo_rect.y += 3
+
+    # Se o fundo saiu da janela, faz ele voltar para cima
+    if fundo_rect.top > altura:
+        fundo_rect.y -= fundo_rect.height
+
+    # Desenha o fundo e uma cópia para baixo
+    window.blit(fundo, fundo_rect)
+    fundo_rect2 = fundo_rect.copy()
+    fundo_rect2.y -= fundo_rect2.height
+    window.blit(fundo, fundo_rect2)
+
     todospassaros.draw(window)
     pygame.display.flip()
 
