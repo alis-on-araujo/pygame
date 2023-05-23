@@ -149,7 +149,7 @@ class Estrela(pygame.sprite.Sprite):
         self.rect.y += self.speedy
 
         if self.rect.top > altura:  
-            self.rect.x = random.randint(0, largura)  
+            self.rect.x = random.randint(0, largura-10)  
             self.rect.y = random.randint(-500, -50)  
             self.speedy = random.randint(6, 10)  
             self.visible = True
