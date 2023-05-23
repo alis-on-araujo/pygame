@@ -35,8 +35,8 @@ balões_img = pygame.image.load('imagens/balões.png').convert_alpha()
 balões_img = pygame.transform.scale(balões_img, (balões_largura, balões_altura))
 
 #Gera Estrelas:
-estrela_largura = 50
-estrela_altura = 50
+estrela_largura = 40
+estrela_altura = 40
 estrela_img = pygame.image.load('imagens/estrela.png').convert_alpha()
 estrela_img = pygame.transform.scale(estrela_img, (estrela_largura, estrela_altura))
 
@@ -240,15 +240,19 @@ while game:
                 estrela = Estrela(estrela_img)
                 todospassaros.add(estrela)
                 todasestrelas.add(estrela)
-            
-    
-    if timer >= 5:
-        score += 10
 
-    if score < 0:
-        game = False
+
+            timer += 1
+
+        if current_time >= 5:
+                    score += 10
+
+        if current_time < 0:
+                game = False
     
-    timer += 1
+
+    
+
     
     jogador.rect.x += jogador.speedx
     jogador.rect.y += jogador.speedy 
