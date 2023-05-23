@@ -18,13 +18,9 @@ Estrela (sound effect): https://www.youtube.com/watch?v=w_sYRVklQ58
 
 Imagens:
 Tela de início: 
-
 Casa: https://www.dlf.pt/ddetail/hxiJRbm_warming-ways-for-winter-disney-up-house/
-
 Fundo(ceu azul): https://br.freepik.com/vetores-gratis/mao-desenhada-nuvem-na-colecao-do-ceu_15695332.htm
-
 Estrela:https://www.dlf.pt/ddetail/hxiJRbm_warming-ways-for-winter-disney-up-house/ 
-
 Pássaro: https://www.icone-gif.com/gif/oiseaux/corbeaux/corbeau024.gif
 
 
