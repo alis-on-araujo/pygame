@@ -1,6 +1,11 @@
 import pygame
 import random
 import time
+from config import YELLOW, WHITE
+
+pygame.init()
+
+
 
 pygame.init()
 
@@ -43,6 +48,9 @@ estrela_img = pygame.transform.scale(estrela_img, (estrela_largura, estrela_altu
 fundo = pygame.image.load('imagens/ceu_azul1.jpg').convert()
 fundo = pygame.transform.scale(fundo, (700, 850))
 fundo_rect = fundo.get_rect()
+
+#Fonte de score
+scorefont = pygame.font.SysFont('cooper', 48)
 
 
 class Casa(pygame.sprite.Sprite):
@@ -162,6 +170,7 @@ todospassaros.add(jogador_balões)
 timer = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
+score = 0 
 
 while game:
     clock.tick(FPS)
@@ -235,7 +244,17 @@ while game:
                 estrela = Estrela(estrela_img)
                 todospassaros.add(estrela)
                 todasestrelas.add(estrela)
-            timer += 1
+            
+            
+
+    if timer >= 5:
+        score += 10
+
+    if score < 0:
+        game = False
+    
+    timer += 1
+    
     
     jogador.rect.x += jogador.speedx
     jogador.rect.y += jogador.speedy 
@@ -247,12 +266,18 @@ while game:
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
 
+
+
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
     if len(hits) > 0:
         game = False
+    
+    
 
     # Movimento do fundo
     fundo_rect.y += 2
+
+
 
     # Se o fundo saiu da janela, faz ele voltar para cima
     if fundo_rect.top > altura:
@@ -263,6 +288,13 @@ while game:
     fundo_rect2 = fundo_rect.copy()
     fundo_rect2.y -= fundo_rect2.height
     window.blit(fundo, fundo_rect2)
+
+
+    text_surface = font.render('{:06d}'.format(score), True, YELLOW)
+
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (largura/2, 30)
+    window.blit(text_surface, text_rect)
 
     todospassaros.draw(window)
     pygame.display.flip()
