@@ -244,7 +244,7 @@ while game:
 
             timer += 1
 
-        if current_time >= 5:
+        if current_time >= 1:
                     score += 10
 
         if current_time < 0:
