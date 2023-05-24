@@ -85,6 +85,7 @@ class Casa(pygame.sprite.Sprite):
         if self.rect.bottom > altura:
             self.rect.bottom = altura
 
+
 class Balões(pygame.sprite.Sprite):
     def __init__(self, img):
         pygame.sprite.Sprite.__init__(self)
@@ -182,6 +183,7 @@ contador = 0
 
 
 while game:
+
     clock.tick(FPS)
 
     if contador < 1:
@@ -189,7 +191,7 @@ while game:
         todospassaros.add(jogador_balões)
 
         contador += 1
-        
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
@@ -284,10 +286,14 @@ while game:
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
 
-    
+    casax = jogador.rect.x
+    casay = jogador.rect.y
 
     if len(hits) > 0 and contador < 2:
+        jogador_balões.kill()
         jogador_balões = Balões(balões_hit1)
+        jogador_balões.rect.x = casax
+        jogador_balões.rect.y = casay - 100
         todospassaros.add(jogador_balões)
         contador += 1
 
