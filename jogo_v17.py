@@ -42,6 +42,8 @@ balões_img = pygame.image.load('imagens/balões.png').convert_alpha()
 balões_img = pygame.transform.scale(balões_img, (balões_largura, balões_altura))
 balões_hit1 = pygame.image.load('imagens/Balões_Vida_1.png').convert_alpha()
 balões_hit1 = pygame.transform.scale(balões_hit1, (balões_largura, balões_altura))
+balões_hit2 = pygame.image.load('imagens/Balões_Vida_2.png').convert_alpha()
+balões_hit2 = pygame.transform.scale(balões_hit1, (balões_largura, balões_altura))
 
 #Gera Estrelas:
 estrela_largura = 40
@@ -181,7 +183,6 @@ score = 0
 
 contador = 0
 
-
 while game:
 
     clock.tick(FPS)
@@ -292,6 +293,14 @@ while game:
     if len(hits) > 0 and contador < 2:
         jogador_balões.kill()
         jogador_balões = Balões(balões_hit1)
+        jogador_balões.rect.x = casax
+        jogador_balões.rect.y = casay - 100
+        todospassaros.add(jogador_balões)
+        contador += 1
+
+    if len(hits) > 1 and contador < 3:
+        jogador_balões.kill()
+        jogador_balões = Balões(balões_hit2)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
         todospassaros.add(jogador_balões)
