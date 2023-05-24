@@ -41,6 +41,7 @@ balões_altura=120
 balões_img = pygame.image.load('imagens/balões.png').convert_alpha()
 balões_img = pygame.transform.scale(balões_img, (balões_largura, balões_altura))
 balões_hit = pygame.image.load('imagens/Balões_Vida_1.png').convert_alpha()
+balões_hit = pygame.transform.scale(balões_hit, (balões_largura, balões_altura))
 
 #Gera Estrelas:
 estrela_largura = 40
@@ -87,13 +88,16 @@ class Casa(pygame.sprite.Sprite):
 class Balões(pygame.sprite.Sprite):
     def __init__(self, img, img_hit):
         pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.image.estourada= img_hit
+        self.image_normal = img
+        self.image_hit = img_hit
+        self.image = self.image_normal
+        
         self.rect = self.image.get_rect()
         self.rect.centerx = largura / 2
         self.rect.bottom = altura - 65
         self.speedx = 0
         self.speedy = 0
+        self.hit = False
 
     def update(self):
         self.rect.x += self.speedx
@@ -113,7 +117,10 @@ class Balões(pygame.sprite.Sprite):
             self.rect.bottom = altura - 55
 
     def balão_estourado(self):
-        self.image = self.image.estourada
+        self.image = self.image_hit
+        self.hit = True
+    
+    
 
 
 
@@ -126,6 +133,8 @@ class Passaro(pygame.sprite.Sprite):
         self.rect.y = random.randint(5, 750)
         self.speedx = random.randint(-10, -6)
         self.speedy = 0
+        self.hit = False
+        
 
     def update(self):
         self.rect.x += self.speedx
@@ -136,6 +145,8 @@ class Passaro(pygame.sprite.Sprite):
             self.rect.y = random.randint(5, 750)
             self.speedx = random.randint(-10, -6)
             self.speedy = 0
+
+    
 
 
 class Estrela(pygame.sprite.Sprite):
@@ -280,9 +291,10 @@ while game:
     todospassaros.update()
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
-    if len(hits) >0:
+    if len(hits) > 0:
         for balão in hits:
             balão.balão_estourado()
+            
 
             
         
