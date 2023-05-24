@@ -40,8 +40,8 @@ balões_largura= 80
 balões_altura=120
 balões_img = pygame.image.load('imagens/balões.png').convert_alpha()
 balões_img = pygame.transform.scale(balões_img, (balões_largura, balões_altura))
-balões_hit = pygame.image.load('imagens/Balões_Vida_1.png').convert_alpha()
-balões_hit = pygame.transform.scale(balões_hit, (balões_largura, balões_altura))
+balões_hit1 = pygame.image.load('imagens/Balões_Vida_1.png').convert_alpha()
+balões_hit1 = pygame.transform.scale(balões_hit1, (balões_largura, balões_altura))
 
 #Gera Estrelas:
 estrela_largura = 40
@@ -86,18 +86,14 @@ class Casa(pygame.sprite.Sprite):
             self.rect.bottom = altura
 
 class Balões(pygame.sprite.Sprite):
-    def __init__(self, img, img_hit):
+    def __init__(self, img):
         pygame.sprite.Sprite.__init__(self)
-        self.image_normal = img
-        self.image_hit = img_hit
-        self.image = self.image_normal
-        
+        self.image = img
         self.rect = self.image.get_rect()
         self.rect.centerx = largura / 2
         self.rect.bottom = altura - 65
         self.speedx = 0
         self.speedy = 0
-        self.hit = False
 
     def update(self):
         self.rect.x += self.speedx
@@ -116,13 +112,6 @@ class Balões(pygame.sprite.Sprite):
         if self.rect.bottom > altura - 55:
             self.rect.bottom = altura - 55
 
-    def reset_balão(self, img):
-        self.image = img
-        self.hit = False
-    
-    
-
-
 
 class Passaro(pygame.sprite.Sprite):
     def __init__(self, img):
@@ -133,8 +122,6 @@ class Passaro(pygame.sprite.Sprite):
         self.rect.y = random.randint(5, 750)
         self.speedx = random.randint(-10, -6)
         self.speedy = 0
-        self.hit = False
-        
 
     def update(self):
         self.rect.x += self.speedx
@@ -145,8 +132,6 @@ class Passaro(pygame.sprite.Sprite):
             self.rect.y = random.randint(5, 750)
             self.speedx = random.randint(-10, -6)
             self.speedy = 0
-
-    
 
 
 class Estrela(pygame.sprite.Sprite):
@@ -185,9 +170,7 @@ todospassaros2 = pygame.sprite.Group()
 todasestrelas = pygame.sprite.Group()
 
 jogador = Casa(casa_img)
-jogador_balões = Balões(balões_img, balões_hit)
 todospassaros.add(jogador)
-todospassaros.add(jogador_balões)
 
 
 timer = 0
@@ -195,9 +178,18 @@ timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
 score = 0
 
+contador = 0
+
 
 while game:
     clock.tick(FPS)
+
+    if contador < 1:
+        jogador_balões = Balões(balões_img)
+        todospassaros.add(jogador_balões)
+
+        contador += 1
+        
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
@@ -291,12 +283,14 @@ while game:
     todospassaros.update()
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
-    if len(hits) > 0:
-       balões_img.reset_balões(balões_hit)
-            
 
-            
-        
+    
+
+    if len(hits) > 0 and contador < 2:
+        jogador_balões = Balões(balões_hit1)
+        todospassaros.add(jogador_balões)
+        contador += 1
+
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
     for hit in hits_2:
         for i in range(1):
