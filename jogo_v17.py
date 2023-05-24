@@ -116,9 +116,9 @@ class Balões(pygame.sprite.Sprite):
         if self.rect.bottom > altura - 55:
             self.rect.bottom = altura - 55
 
-    def balão_estourado(self):
-        self.image = self.image_hit
-        self.hit = True
+    def reset_balão(self, img):
+        self.image = img
+        self.hit = False
     
     
 
@@ -292,8 +292,7 @@ while game:
 
     hits = pygame.sprite.spritecollide(jogador_balões, todospassaros2, True)
     if len(hits) > 0:
-        for balão in hits:
-            balão.balão_estourado()
+       balões_img.reset_balões(balões_hit)
             
 
             
