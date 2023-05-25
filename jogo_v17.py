@@ -21,6 +21,9 @@ som_fundo = pygame.mixer.Sound('audio/Married Life.mp3')
 som_fundo.set_volume(0.5) 
 som_fundo.play(loops=-1)
 som_estrela = pygame.mixer.Sound('audio/estrela_som.mp3')
+som_estrela.set_volume(0.5) 
+som_balao = pygame.mixer.Sound('audio/balaosom.mp3')
+som_balao.set_volume(0.5) 
 
 
 # Gera passaros
@@ -292,6 +295,7 @@ while game:
 
     if len(hits) > 0 and contador < 2:
         jogador_balões.kill()
+        som_balao.play()
         jogador_balões = Balões(balões_hit1)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
