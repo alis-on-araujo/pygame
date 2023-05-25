@@ -295,6 +295,8 @@ while game:
         jogador_balões = Balões(balões_hit1)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
+        jogador_balões.speedx = jogador.speedx
+        jogador_balões.speedy = jogador.speedy
         todospassaros.add(jogador_balões)
         contador += 1
 
