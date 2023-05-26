@@ -123,6 +123,26 @@ class Balões(pygame.sprite.Sprite):
 
         if self.rect.bottom > altura - 55:
             self.rect.bottom = altura - 55
+    
+class Vidas(pygame.sprite.Sprite):
+    def __init__(self, img):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.x = largura
+        self.rect.y = random.randint(5, 750)
+        self.speedx = random.randint(-10, -6)
+        self.speedy = 0
+
+    def update(self):
+        self.rect.x += self.speedx
+        self.rect.y += self.speedy
+
+        if self.rect.right < 0 or self.rect.left > largura:
+            self.rect.x = largura
+            self.rect.y = random.randint(5, 750)
+            self.speedx = random.randint(-10, -6)
+            self.speedy = 0
 
 
 class Passaro(pygame.sprite.Sprite):
@@ -182,7 +202,7 @@ FPS = 30
 todospassaros = pygame.sprite.Group()
 todospassaros2 = pygame.sprite.Group()
 todasestrelas = pygame.sprite.Group()
-todosdiamantes = pygame.sprite.Group() 
+todosbaloes = pygame.sprite.Group() 
 
 jogador = Casa(casa_img)
 todospassaros.add(jogador)
@@ -192,9 +212,8 @@ timer = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
 score = 0
-
 contador = 0
-lives = 3
+x = 0
 
 while game:
 
@@ -267,7 +286,7 @@ while game:
 
     if timer_started:
         if current_time >= 1 and timer == 0:
-            # Cria um novo pássaro a cada 2 segundos
+            #Cria um novo pássaro depois de 2 segundos do começo do jogo
             for i in range(5):
                 passaro = Passaro(passaro_img)
                 todospassaros.add(passaro)
@@ -285,7 +304,15 @@ while game:
 
         if current_time < 0:
                 game = False
-    
+            
+        if timer == x:
+            for i in range(1):
+                balao = Vidas(vida_balões)
+                todospassaros.add(balao)
+                todosbaloes.add(balao)
+
+            x += 2
+
 
     jogador.rect.x += jogador.speedx
     jogador.rect.y += jogador.speedy 
@@ -315,7 +342,6 @@ while game:
     elif len(hits) == 1 and contador == 2:
         jogador_balões.kill()
         som_balao.play()
-        lives -= 1
         jogador_balões = Balões(balões_hit2)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
@@ -327,7 +353,6 @@ while game:
     elif len(hits) == 1 and contador == 3:
          jogador_balões.kill()
          som_balao.play()
-         lives -= 1
 
          jogador.speedy += 10
          contador += 1
@@ -365,8 +390,6 @@ while game:
 
     
     
-
-
     vida1 = vida_balões.get_rect()
     vida1.bottomleft = (10, altura - 10)
 
