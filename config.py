@@ -2,7 +2,6 @@
 largura = 700
 altura = 850
 
-
 FPS = 30
 
 #Largura e altura do pássaro
