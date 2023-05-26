@@ -65,8 +65,10 @@ fundo = pygame.image.load('imagens/ceu_azul1.jpg').convert()
 fundo = pygame.transform.scale(fundo, (700, 850))
 fundo_rect = fundo.get_rect()
 
+assets = {}
 #Fonte de score
-scorefont = pygame.font.SysFont('cooper', 48)
+
+assets["score_font"] = pygame.font.Font('assets/font/PressStart2P.ttf', 28)
 
 
 class Casa(pygame.sprite.Sprite):
@@ -216,6 +218,7 @@ start_time = time.time()  # Tempo inicial do jogo
 score = 0
 
 contador = 0
+lives = 3
 
 while game:
 
@@ -329,10 +332,10 @@ while game:
     casay = jogador.rect.y
 
 
-
     if len(hits) == 1 and contador == 1:
         jogador_balões.kill()
         som_balao.play()
+        lives -= 1
         jogador_balões = Balões(balões_hit1)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
@@ -344,6 +347,7 @@ while game:
     elif len(hits) == 1 and contador == 2:
         jogador_balões.kill()
         som_balao.play()
+        lives -= 1
         jogador_balões = Balões(balões_hit2)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
@@ -355,13 +359,12 @@ while game:
     elif len(hits) == 1 and contador == 3:
          jogador_balões.kill()
          som_balao.play()
+         lives -= 1
 
          jogador.speedy += 10
-         contador += 1
 
 
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
-    hits_3 = pygame.sprite.spritecollide(jogador, todasestrelas, True)
     for hit in hits_2:
         for i in range(1):
             estrela = Estrela(estrela_img)
@@ -397,7 +400,11 @@ while game:
     text_rect.midtop = (largura/2, 30)
     window.blit(text_surface, text_rect)
     todospassaros.draw(window)
-
+    
+    text_surface = assets['score_font'].render(chr(9829) * lives, True, (255, 0, 0))
+    text_rect = text_surface.get_rect()
+    text_rect.bottomleft = (10, altura - 10)
+    window.blit(text_surface, text_rect)
     pygame.display.flip()
 
 pygame.quit()

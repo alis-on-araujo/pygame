@@ -13,7 +13,8 @@ Thais Sabaini
 
 Áudios:
 Married Life(música de fundo): https://www.youtube.com/watch?v=2rn-vMbFglI
-Estrela (sound effect): https://www.youtube.com/watch?v=w_sYRVklQ58 
+Estrela (sound effect): https://www.youtube.com/watch?v=w_sYRVklQ58
+Balão (sound effect): https://www.youtube.com/watch?v=YzpwI25UmoE 
 
 
 Imagens:
