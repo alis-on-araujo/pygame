@@ -129,20 +129,23 @@ class Vidas(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = largura
-        self.rect.y = random.randint(5, 750)
-        self.speedx = random.randint(-10, -6)
-        self.speedy = 0
+        self.rect.x = random.randint(0, largura)  # Posição x aleatória dentro da largura da tela
+        self.rect.y = random.randint(-500, -50)  # Posição y aleatória acima da tela
+        self.speedx = 0
+        self.speedy = random.randint(6, 10)  # Velocidade vertical aleatória para a estrela cair
+        self.visible = True
+        self.cooldown = False
 
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
 
-        if self.rect.right < 0 or self.rect.left > largura:
-            self.rect.x = largura
-            self.rect.y = random.randint(5, 750)
-            self.speedx = random.randint(-10, -6)
-            self.speedy = 0
+        if self.rect.top > altura:  
+            self.rect.x = random.randint(0, largura-10)  
+            self.rect.y = random.randint(-500, -50)  
+            self.speedy = random.randint(6, 10)  
+            self.visible = True
+            self.cooldown = False
 
 
 class Passaro(pygame.sprite.Sprite):
@@ -209,6 +212,7 @@ todospassaros.add(jogador)
 
 
 timer = 0
+timer_balão = 0
 timer_started = False
 start_time = time.time()  # Tempo inicial do jogo
 score = 0
@@ -297,7 +301,9 @@ while game:
                 todospassaros.add(estrela)
                 todasestrelas.add(estrela)
 
-            timer += 1
+        timer += 1
+        timer_balão += 1
+
 
         if current_time >= 1:
                     score += 10
@@ -305,13 +311,13 @@ while game:
         if current_time < 0:
                 game = False
             
-        if timer == x:
+        if timer_balão == 500:
             for i in range(1):
                 balao = Vidas(vida_balões)
                 todospassaros.add(balao)
                 todosbaloes.add(balao)
 
-            x += 2
+            timer_balão = 0
 
 
     jogador.rect.x += jogador.speedx
