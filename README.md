@@ -7,8 +7,6 @@ Rafaela Alexandre
 Rodrigo Piccini
 Thais Sabaini 
 
-
-
 ---Referências---
 
 Áudios:
