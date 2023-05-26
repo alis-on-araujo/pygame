@@ -46,7 +46,7 @@ balões_img = pygame.transform.scale(balões_img, (balões_largura, balões_altu
 balões_hit1 = pygame.image.load('imagens/Balões_Vida_1.png').convert_alpha()
 balões_hit1 = pygame.transform.scale(balões_hit1, (balões_largura, balões_altura))
 balões_hit2 = pygame.image.load('imagens/Balões_Vida_2.png').convert_alpha()
-balões_hit2 = pygame.transform.scale(balões_hit1, (balões_largura, balões_altura))
+balões_hit2 = pygame.transform.scale(balões_hit2, (balões_largura, balões_altura))
 
 #Gera Estrelas:
 estrela_largura = 40
@@ -221,11 +221,12 @@ while game:
 
     clock.tick(FPS)
 
-    if contador < 1:
+    if contador == 0:
         jogador_balões = Balões(balões_img)
         todospassaros.add(jogador_balões)
 
         contador += 1
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -327,7 +328,9 @@ while game:
     casax = jogador.rect.x
     casay = jogador.rect.y
 
-    if len(hits) > 0 and contador < 2:
+
+
+    if len(hits) == 1 and contador == 1:
         jogador_balões.kill()
         som_balao.play()
         jogador_balões = Balões(balões_hit1)
@@ -338,13 +341,23 @@ while game:
         todospassaros.add(jogador_balões)
         contador += 1
 
-    if len(hits) > 1 and contador < 3:
+    elif len(hits) == 1 and contador == 2:
         jogador_balões.kill()
+        som_balao.play()
         jogador_balões = Balões(balões_hit2)
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
+        jogador_balões.speedx = jogador.speedx
+        jogador_balões.speedy = jogador.speedy
         todospassaros.add(jogador_balões)
         contador += 1
+
+    elif len(hits) == 1 and contador == 3:
+         jogador_balões.kill()
+         som_balao.play()
+
+         jogador.speedy += 10
+
 
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
     for hit in hits_2:
