@@ -357,9 +357,11 @@ while game:
          som_balao.play()
 
          jogador.speedy += 10
+         contador += 1
 
 
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todasestrelas, True)
+    hits_3 = pygame.sprite.spritecollide(jogador, todasestrelas, True)
     for hit in hits_2:
         for i in range(1):
             estrela = Estrela(estrela_img)
