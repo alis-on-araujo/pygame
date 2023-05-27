@@ -193,6 +193,7 @@ tempo_atual = pygame.time.get_ticks()
 tempo_anterior = tempo_atual
 tempo_anterior_estrela = tempo_atual
 tempo_anterior_vida = tempo_atual
+tempo_anterior_imune = tempo_atual
 FPS = 30
 
 # Criando grupo de passaros
@@ -234,8 +235,6 @@ while game:
 
     clock.tick(FPS)
     tempo_atual = pygame.time.get_ticks()
-
-
 
     # Criando 1º balão (balão grande)
     if contador == 0:
@@ -303,7 +302,7 @@ while game:
 
 
     # adicionando estrela a cada 10 segundos
-    if pode_cair_estrela and tempo_atual - tempo_anterior_estrela >= 10000:
+    if pode_cair_estrela and tempo_atual - tempo_anterior_estrela >= 1000:
         tempo_anterior_estrela = tempo_atual
         pode_cair_estrela = False
 
@@ -313,7 +312,6 @@ while game:
 
 
     # adicionando balões (vidas) a cada 25 segundos
-
     if pode_cair_vida and tempo_atual - tempo_anterior_vida >= 25000:
         tempo_anterior_vida = tempo_atual
         pode_cair_vida = False
@@ -321,6 +319,14 @@ while game:
         vida = Vidas(assets)
         todos_sprites.add(vida)
         todos_baloes.add(vida)
+
+    # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
+    #if contador_estrelas >= 5:
+        #tempo_imune = tempo_atual - tempo_anterior_imune
+        #if tempo_imune >= 5000:
+            #contador_estrelas = 0
+            #tempo_anterior_imune = tempo_atual
+
 
 
     if contador_estrelas < 5:
