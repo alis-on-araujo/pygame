@@ -230,6 +230,8 @@ while game:
     clock.tick(FPS)
     tempo_atual = pygame.time.get_ticks()
 
+
+
     # Criando 1º balão (balão grande)
     if contador == 0:
         jogador_balões = Balões(assets['baloes_img1'])
@@ -307,7 +309,7 @@ while game:
 
     # adicionando balões (vidas) a cada 25 segundos
 
-    if pode_cair_vida and tempo_atual - tempo_anterior_vida >= 25000:
+    if pode_cair_vida and tempo_atual - tempo_anterior_vida >= 5000:
         tempo_anterior_vida = tempo_atual
         pode_cair_vida = False
 
@@ -376,7 +378,6 @@ while game:
 
     if len(hits_3) > 0 and contador == 1:
         jogador_balões.kill()
-        som_balao.play()
         jogador_balões = Balões(assets['baloes_img1'])
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
@@ -386,13 +387,25 @@ while game:
 
     elif len(hits_3) > 0 and contador == 2:
         jogador_balões.kill()
-        som_balao.play()
         jogador_balões = Balões(assets['baloes_img2'])
         jogador_balões.rect.x = casax
         jogador_balões.rect.y = casay - 100
         jogador_balões.speedx = jogador.speedx
         jogador_balões.speedy = jogador.speedy
         todos_sprites.add(jogador_balões)
+
+    elif len(hits_3) > 0 and contador == 0:
+        jogador_balões.kill()
+        jogador_balões = Balões(assets['baloes_img1'])
+        jogador_balões.rect.x = casax
+        jogador_balões.rect.y = casay - 100
+        jogador_balões.speedx = jogador.speedx
+        jogador_balões.speedy = jogador.speedy
+        todos_sprites.add(jogador_balões)
+
+        contador += 1
+
+    
 
     if len(todos_baloes) == 0:
         pode_cair_vida = True
