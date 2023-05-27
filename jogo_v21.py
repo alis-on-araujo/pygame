@@ -220,6 +220,9 @@ pegou_vida = True
 score = 0
 contador = 0
 
+pode_cair_estrela = True
+pode_cair_vida = True
+
 # LOOP PRINCIPAL
 som_fundo.play(loops=-1)
 while game:
@@ -292,20 +295,21 @@ while game:
     todos_sprites.update()
 
 
-    # adicionando estrela a cada 2 segundos
-    if tempo_atual - tempo_anterior_estrela >= 2000 and pegou_estrela:
+    # adicionando estrela a cada 10 segundos
+    if pode_cair_estrela and tempo_atual - tempo_anterior_estrela >= 10000:
         tempo_anterior_estrela = tempo_atual
-        pegou_estrela = False
+        pode_cair_estrela = False
 
         estrela = Estrela(assets)
         todos_sprites.add(estrela)
         todas_estrelas.add(estrela)
 
-    # adicionando balões (vidas) a cada 15 segundos
 
-    if tempo_atual - tempo_anterior_vida >= 15000 and pegou_vida:
+    # adicionando balões (vidas) a cada 25 segundos
+
+    if pode_cair_vida and tempo_atual - tempo_anterior_vida >= 25000:
         tempo_anterior_vida = tempo_atual
-        pegou_vida = False
+        pode_cair_vida = False
 
         vida = Vidas(assets)
         todos_sprites.add(vida)
@@ -324,7 +328,7 @@ while game:
     casay = jogador.rect.y
 
 
-    if len(hits) == 1 and contador == 1:
+    if len(hits) > 0 and contador == 1:
         jogador_balões.kill()
         som_balao.play()
         jogador_balões = Balões(assets['baloes_img2'])
@@ -335,7 +339,7 @@ while game:
         todos_sprites.add(jogador_balões)
         contador += 1
 
-    elif len(hits) == 1 and contador == 2:
+    elif len(hits) > 0 and contador == 2:
         jogador_balões.kill()
         som_balao.play()
         jogador_balões = Balões(assets['baloes_img3'])
@@ -346,7 +350,7 @@ while game:
         todos_sprites.add(jogador_balões)
         contador += 1
 
-    elif len(hits) == 1 and contador == 3:
+    elif len(hits) > 0 and contador == 3:
          jogador_balões.kill()
          som_balao.play()
 
@@ -356,11 +360,44 @@ while game:
 
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todas_estrelas, True)
     
-    if len(hits_2) > 0:
+    for hit in hits_2:
         som_estrela.play()
-        pegou_estrela = True
-    
 
+    if len(todas_estrelas) == 0:
+        pode_cair_estrela = True
+
+
+    hits_3 = pygame.sprite.spritecollide(jogador_balões, todos_baloes, True)
+
+    
+    for hit in hits_3:
+        som_estrela.play()
+        contador -= 1
+
+    if len(hits_3) > 0 and contador == 1:
+        jogador_balões.kill()
+        som_balao.play()
+        jogador_balões = Balões(assets['baloes_img1'])
+        jogador_balões.rect.x = casax
+        jogador_balões.rect.y = casay - 100
+        jogador_balões.speedx = jogador.speedx
+        jogador_balões.speedy = jogador.speedy
+        todos_sprites.add(jogador_balões)
+
+    elif len(hits_3) > 0 and contador == 2:
+        jogador_balões.kill()
+        som_balao.play()
+        jogador_balões = Balões(assets['baloes_img2'])
+        jogador_balões.rect.x = casax
+        jogador_balões.rect.y = casay - 100
+        jogador_balões.speedx = jogador.speedx
+        jogador_balões.speedy = jogador.speedy
+        todos_sprites.add(jogador_balões)
+
+    if len(todos_baloes) == 0:
+        pode_cair_vida = True
+
+    
 
     # Movimento do fundo
     
