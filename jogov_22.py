@@ -223,6 +223,7 @@ pegou_vida = True
 
 score = 0
 contador = 0
+contador_estrelas = 0
 
 pode_cair_estrela = True
 pode_cair_vida = True
@@ -322,8 +323,8 @@ while game:
         todos_baloes.add(vida)
 
 
-
-    hits = pygame.sprite.spritecollide(jogador_balões, todos_passaros, True)
+    if contador_estrelas < 5:
+        hits = pygame.sprite.spritecollide(jogador_balões, todos_passaros, True)
 
     for passaro in hits:
         p = Passaro(assets)
@@ -368,6 +369,7 @@ while game:
     
     for hit in hits_2:
         som_estrela.play()
+        contador_estrelas += 1
 
     if len(todas_estrelas) == 0:
         pode_cair_estrela = True
