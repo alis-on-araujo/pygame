@@ -191,7 +191,9 @@ tempo_atual = pygame.time.get_ticks()
 tempo_anterior = tempo_atual
 tempo_anterior_estrela = tempo_atual
 tempo_anterior_vida = tempo_atual
-tempo_anterior_imune = tempo_atual
+tempo_imunidade = 5000 
+tempo_imunidade_atual = 0
+tempo_anterior_imune = 0
 FPS = 30
 
 # Criando grupo de passaros
@@ -222,10 +224,12 @@ pegou_vida = True
 
 score = 0
 contador = 0
+contador2 = 0
 contador_estrelas = 0
 
 pode_cair_estrela = True
 pode_cair_vida = True
+imune = False
 
 # LOOP PRINCIPAL
 som_fundo.play(loops=-1)
@@ -318,22 +322,24 @@ while game:
         todos_sprites.add(vida)
         todos_baloes.add(vida)
 
-    # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
-    #if contador_estrelas >= 5:
-        #tempo_imune = tempo_atual - tempo_anterior_imune
-        #if tempo_imune >= 5000:
-            #contador_estrelas = 0
-            #tempo_anterior_imune = tempo_atual
-
-
-
+    
+   # Passaros batem no balão se a casa não estiver imune
     if contador_estrelas < 5:
         hits = pygame.sprite.spritecollide(jogador_balões, todos_passaros, True)
 
-    if contador_estrelas > 5:
-        if tempo_atual - tempo_anterior_imune >= 5000:
+    # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
+    if imune:
+        if tempo_atual - tempo_anterior_imune >= tempo_imunidade:
+            imune = False
             contador_estrelas = 0
-            tempo_anterior_imune = tempo_atual
+            contador2 = 0
+            
+
+    if contador_estrelas >= 5 and contador2 == 0:
+        imune = True
+        tempo_anterior_imune = tempo_atual
+        contador2 += 1
+        
 
     for passaro in hits:
         p = Passaro(assets)

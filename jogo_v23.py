@@ -192,6 +192,8 @@ tempo_anterior = tempo_atual
 tempo_anterior_estrela = tempo_atual
 tempo_anterior_vida = tempo_atual
 tempo_anterior_imune = tempo_atual
+
+
 FPS = 30
 
 # Criando grupo de passaros
@@ -319,18 +321,10 @@ while game:
         todos_baloes.add(vida)
 
     # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
-    #if contador_estrelas >= 5:
-        #tempo_imune = tempo_atual - tempo_anterior_imune
-        #if tempo_imune >= 5000:
-            #contador_estrelas = 0
-            #tempo_anterior_imune = tempo_atual
-
-
-
     if contador_estrelas < 5:
         hits = pygame.sprite.spritecollide(jogador_balões, todos_passaros, True)
     
-    if contador_estrelas > 5:
+    if contador_estrelas >= 5:
         if tempo_atual - tempo_anterior_imune >= 5000:
             contador_estrelas = 0
             tempo_anterior_imune = tempo_atual
