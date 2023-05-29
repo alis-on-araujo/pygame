@@ -330,6 +330,11 @@ while game:
     if contador_estrelas < 5:
         hits = pygame.sprite.spritecollide(jogador_balões, todos_passaros, True)
 
+    if contador_estrelas > 5:
+        if tempo_atual - tempo_anterior_imune >= 5000:
+            contador_estrelas = 0
+            tempo_anterior_imune = tempo_atual
+
     for passaro in hits:
         p = Passaro(assets)
         todos_sprites.add(p)
