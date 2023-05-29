@@ -346,6 +346,7 @@ while game:
         todos_sprites.add(p)
         todos_passaros.add(p)
 
+
     casax = jogador.rect.x
     casay = jogador.rect.y
 
