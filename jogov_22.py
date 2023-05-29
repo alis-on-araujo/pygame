@@ -12,7 +12,6 @@ window = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('UP Challenge')
 
 
-
 font = pygame.font.SysFont(None, 48)
 
 #Assets
@@ -45,7 +44,6 @@ assets['score_font'] = pygame.font.Font('assets/font/PressStart2P.ttf', 28)
 
 fundo_rect = assets['background'].get_rect()
 
-
 #Carrega sons
 som_fundo = pygame.mixer.Sound('audio/Married Life.mp3')
 som_fundo.set_volume(0.5) 
@@ -54,7 +52,7 @@ som_estrela = pygame.mixer.Sound('audio/estrela_som.mp3')
 som_estrela.set_volume(0.5) 
 som_balao = pygame.mixer.Sound('audio/balaosom.mp3')
 som_balao.set_volume(0.5) 
-
+som_pegavida = pygame.mixer.Sound('audio/somvida.mp3')
 
 class Casa(pygame.sprite.Sprite):
     def __init__(self, groups, assets):
@@ -380,12 +378,10 @@ while game:
     if len(todas_estrelas) == 0:
         pode_cair_estrela = True
 
-
     hits_3 = pygame.sprite.spritecollide(jogador_balões, todos_baloes, True)
 
-    
     for hit in hits_3:
-        som_estrela.play()
+        som_pegavida.play()
         contador -= 1
 
     if len(hits_3) > 0 and contador == 1:
