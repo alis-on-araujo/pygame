@@ -548,7 +548,7 @@ while game:
         score += 10
         tempo_anterior = tempo_atual
 
-    text_surface = font.render('{:06d}'.format(score), True, WHITE)
+    text_surface = font.render('{:08d}'.format(score), True, WHITE)
 
     text_rect = text_surface.get_rect()
     text_rect.midtop = (largura/2, 30)
