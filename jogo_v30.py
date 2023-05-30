@@ -425,7 +425,7 @@ while game:
             todos_sprites.add(jogador)
 
    
-    if contador_estrelas >= 5 and contador2 == 0:
+    if contador_estrelas >= 5 and contador2 == 0 and contador < 4:
         imune = True
         tempo_anterior_imune = tempo_atual
         contador2 += 1
