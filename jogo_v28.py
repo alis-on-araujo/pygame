@@ -54,7 +54,7 @@ fundo_rect = assets['background'].get_rect()
 
 #Carrega sons
 som_fundo = pygame.mixer.Sound('audio/Married Life.mp3')
-som_fundo.set_volume(0.5)
+som_fundo.set_volume(0.8)
 som_estrela = pygame.mixer.Sound('audio/estrela_som.mp3')
 som_estrela.set_volume(0.2) 
 som_balao = pygame.mixer.Sound('audio/balaosom.mp3')
@@ -297,9 +297,13 @@ pode_cair_vida = True
 imune = False
 
 # LOOP PRINCIPAL
-som_fundo.play(loops=-1)
+contador_musica = 0
 tela_inicio()
 while game:
+    
+    while contador_musica == 0:
+        som_fundo.play(loops=-1)
+        contador_musica += 1 
 
     clock.tick(FPS)
     tempo_atual = pygame.time.get_ticks()
@@ -568,6 +572,7 @@ while game:
         contador2 = 0
         contador_estrelas = 0
         score =  0
+        contador_musica = 0
         
         todos_sprites.empty()
         todos_passaros.empty()
