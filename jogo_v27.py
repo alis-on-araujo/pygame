@@ -562,6 +562,9 @@ while game:
         tela_game_over()
         contador = 0
         contador2 = 0
+        contador_estrelas = 0
+        score =  0
+        
         todos_sprites.empty()
         todos_passaros.empty()
         todas_estrelas.empty()
