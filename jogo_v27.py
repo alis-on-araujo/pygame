@@ -183,7 +183,7 @@ class Vidas(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets['vida_baloes']
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, largura)  # Posição x aleatória dentro da largura da tela
+        self.rect.x = random.randint(0, largura -50)  # Posição x aleatória dentro da largura da tela
         self.rect.y = random.randint(-500, -50)  # Posição y aleatória acima da tela
         self.speedx = 0
         self.speedy = random.randint(6, 10)  # Velocidade vertical aleatória para a estrela cair
@@ -195,7 +195,7 @@ class Vidas(pygame.sprite.Sprite):
         self.rect.y += self.speedy
 
         if self.rect.top > altura:  
-            self.rect.x = random.randint(0, largura-10)  
+            self.rect.x = random.randint(0, largura-50)  
             self.rect.y = random.randint(-500, -50)  
             self.speedy = random.randint(6, 10)  
             self.visible = True
@@ -228,7 +228,7 @@ class Estrela(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets['estrela_img']
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, largura)  # Posição x aleatória dentro da largura da tela
+        self.rect.x = random.randint(0, largura -50)  # Posição x aleatória dentro da largura da tela
         self.rect.y = random.randint(-500, -50)  # Posição y aleatória acima da tela
         self.speedx = 0
         self.speedy = random.randint(6, 10)  # Velocidade vertical aleatória para a estrela cair
@@ -239,7 +239,7 @@ class Estrela(pygame.sprite.Sprite):
         self.rect.y += self.speedy
 
         if self.rect.top > altura:  
-            self.rect.x = random.randint(0, largura-10)  
+            self.rect.x = random.randint(0, largura-50)  
             self.rect.y = random.randint(-500, -50)  
             self.speedy = random.randint(6, 10)  
             self.visible = True
@@ -560,11 +560,18 @@ while game:
     #Verificsa se jogador perdeu (casa caiu)
     if casay > 1100:
         tela_game_over()
+
+        #reenicia parâmetros
         contador = 0
         contador2 = 0
         contador_estrelas = 0
         score =  0
-        
+        tempo_anterior = 0
+        tempo_anterior_estrela = 0
+        tempo_anterior_vida = 0
+        tempo_imunidade_atual = 0
+        tempo_anterior_imune = 0
+
         todos_sprites.empty()
         todos_passaros.empty()
         todas_estrelas.empty()
