@@ -317,111 +317,159 @@ while game:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 if contador == 1:
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
                     jogador_balões.speedx -= 10
                     jogador.speedx -= 10
 
                 if contador == 2:
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
                     jogador_balões.speedx -= 6
                     jogador.speedx -= 6
 
                 if contador == 3:
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
                     jogador_balões.speedx -= 4
                     jogador.speedx -= 4
 
 
             if event.key == pygame.K_RIGHT:
                 if contador == 1:
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
                     jogador_balões.speedx += 10
                     jogador.speedx += 10
 
                 if contador == 2:
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
                     jogador_balões.speedx += 6
                     jogador.speedx += 6
 
                 if contador == 3:
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
                     jogador_balões.speedx += 4
                     jogador.speedx += 4
 
-
             if event.key == pygame.K_UP:
                 if contador == 1:
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
                     jogador_balões.speedy -= 6
                     jogador.speedy -= 6
 
                 if contador == 2:
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
                     jogador_balões.speedy -= 4
                     jogador.speedy -= 4
 
                 if contador == 3:
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
                     jogador_balões.speedy -= 2
                     jogador.speedy -= 2
 
             if event.key == pygame.K_DOWN:
                 if contador == 1:
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
                     jogador_balões.speedy += 10
                     jogador.speedy += 10
 
                 if contador == 2:
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
                     jogador_balões.speedy += 6
                     jogador.speedy += 6
 
                 if contador == 3:
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
                     jogador_balões.speedy += 4
                     jogador.speedy += 4
             
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                if contador == 1:
+                if contador == 1:                    
                     jogador_balões.speedx += 10
                     jogador.speedx += 10
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
 
                 if contador == 2:
                     jogador_balões.speedx += 6
                     jogador.speedx += 6
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
 
                 if contador == 3:
                     jogador_balões.speedx += 4
                     jogador.speedx += 4
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
 
             if event.key == pygame.K_RIGHT:
                 if contador == 1:
                     jogador_balões.speedx -= 10
                     jogador.speedx -= 10
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
 
-                if contador == 2:
+                if contador == 2:                    
                     jogador_balões.speedx -= 6
                     jogador.speedx -= 6
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
 
                 if contador == 3:
                     jogador_balões.speedx -= 4
                     jogador.speedx -= 4
+                    jogador_balões.speedx = 0
+                    jogador.speedx = 0
 
             if event.key == pygame.K_UP:
                 if contador == 1:
                     jogador_balões.speedy += 6
                     jogador.speedy += 6
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
 
                 if contador == 2:
                     jogador_balões.speedy += 4
                     jogador.speedy += 4
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
 
                 if contador == 3:
                     jogador_balões.speedy += 2
                     jogador.speedy += 2
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
 
             if event.key == pygame.K_DOWN:
                 if contador == 1:
                     jogador_balões.speedy -= 10
                     jogador.speedy -= 10
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
 
                 if contador == 2:
                     jogador_balões.speedy -= 6
                     jogador.speedy -= 6
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
+                    
 
                 if contador == 3:
                     jogador_balões.speedy -= 4
                     jogador.speedy -= 4
+                    jogador_balões.speedy = 0
+                    jogador.speedy = 0
          
             
     jogador.rect.x += jogador.speedx
