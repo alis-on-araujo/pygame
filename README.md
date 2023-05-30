@@ -10,6 +10,9 @@ Thais Sabaini
 Funcionamento:
 O objetivo do jogo é permanecer o máximo de tempo possível que conseguir, os scores aumentam conforme o tempo. Ao coletar as estrelas, a cada 5, a casa permanece imune por 5 segundos. São disponíveis 3 vidas no começo do jogo, e ao longo do jogo cai vidas que são possíveis de serem coletadas. Se perde todas as vidas, o jogo acaba.
 
+Vídeo rodando o jogo:
+https://www.youtube.com/watch?v=aLzexHPbIIk
+
 ---Referências---
 
 Áudios:
