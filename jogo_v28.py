@@ -456,6 +456,7 @@ while game:
         contador += 1
 
     elif len(hits) > 0 and contador == 3:
+         som_fundo.stop()
          som_gameover.play() 
          jogador_balões.kill()
          som_balao.play()
