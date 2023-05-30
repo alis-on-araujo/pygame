@@ -30,6 +30,8 @@ assets['passaros_img'] = pygame.image.load('imagens/passaro.gif').convert_alpha(
 assets['passaros_img'] = pygame.transform.scale(assets['passaros_img'], (passaro_largura, passaro_altura))
 assets['casa_img'] = pygame.image.load('imagens/casa_sem_balões.png').convert_alpha()
 assets['casa_img'] = pygame.transform.scale(assets['casa_img'], (casa_largura, casa_altura))
+assets['casa_imune'] = pygame.image.load('imagens/casa_com_poder.png').convert_alpha()
+assets['casa_imune'] = pygame.transform.scale(assets['casa_imune'], (casa_largura, casa_altura))
 assets['baloes_img1'] = pygame.image.load('imagens/balões.png').convert_alpha()
 assets['baloes_img1'] = pygame.transform.scale(assets['baloes_img1'], (baloes_largura, baloes_altura))
 assets['baloes_img2'] = pygame.image.load('imagens/Balões_Vida_1.png').convert_alpha()
@@ -55,9 +57,9 @@ som_balao.set_volume(0.5)
 som_pegavida = pygame.mixer.Sound('audio/somvida.mp3')
 
 class Casa(pygame.sprite.Sprite):
-    def __init__(self, groups, assets):
+    def __init__(self, groups, img):
         pygame.sprite.Sprite.__init__(self)
-        self.image = assets['casa_img']
+        self.image = img
         self.rect = self.image.get_rect()
         self.rect.centerx = largura / 2
         self.rect.bottom = altura - 10
@@ -209,7 +211,7 @@ groups['todas_estrelas'] = todas_estrelas
 groups['todos_baloes'] = todos_baloes
 
 # criando jogador
-jogador = Casa(groups, assets)
+jogador = Casa(groups, assets['casa_img'])
 todos_sprites.add(jogador)
 
 # criando passaros
@@ -333,12 +335,28 @@ while game:
             imune = False
             contador_estrelas = 0
             contador2 = 0
-            
+
+            jogador.kill()
+            jogador = Casa(groups, assets['casa_img'])
+            jogador.rect.x = jogador_balões.rect.x
+            jogador.rect.y = jogador_balões.rect.y + 100
+            jogador.speedx = jogador_balões.speedx
+            jogador.speedy = jogador_balões.speedy
+            todos_sprites.add(jogador)
+                
 
     if contador_estrelas >= 5 and contador2 == 0:
         imune = True
         tempo_anterior_imune = tempo_atual
         contador2 += 1
+        jogador.kill()
+        jogador = Casa(groups, assets['casa_imune'])
+        jogador.rect.x = jogador_balões.rect.x
+        jogador.rect.y = jogador_balões.rect.y + 100
+        jogador.speedx = jogador_balões.speedx
+        jogador.speedy = jogador_balões.speedy
+        todos_sprites.add(jogador)
+
         
 
     for passaro in hits:
