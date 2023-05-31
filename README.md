@@ -11,7 +11,7 @@ Funcionamento:
 O objetivo do jogo é permanecer o máximo de tempo possível que conseguir, os scores aumentam conforme o tempo. Ao coletar as estrelas, a cada 5, a casa permanece imune por 5 segundos. São disponíveis 3 vidas no começo do jogo, e ao longo do jogo cai vidas que são possíveis de serem coletadas. Se perde todas as vidas, o jogo acaba.
 
 Vídeo rodando o jogo:
-https://www.youtube.com/watch?v=aLzexHPbIIk
+https://www.youtube.com/watch?v=Gqc-pFCcNs4
 
 ---Referências---
 
@@ -21,6 +21,7 @@ Estrela (sound effect): https://www.youtube.com/watch?v=w_sYRVklQ58
 Balão (sound effect): https://www.youtube.com/watch?v=YzpwI25UmoE 
 Pega vida (sound effect): https://www.youtube.com/watch?v=ndgsWcd3yUs
 Game over (sound effect): https://www.youtube.com/watch?v=4-I7_Rt4Izo
+Imunidade (sound effect): https://www.youtube.com/watch?v=2MhHiKajn8o
 
 
 Imagens:
