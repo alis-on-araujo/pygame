@@ -1,32 +1,9 @@
 import pygame
 import random
 from config import YELLOW, WHITE
-import shelve
 
 pygame.init()
 pygame.mixer.init()
-
-def adicionar_pontuacao(nome, pontuacao):
-    with shelve.open('pontuacoes.db') as db:
-        if nome in db:
-            # Se o jogador já existe, atualiza a pontuação se for maior
-            if pontuacao > db[nome]:
-                db[nome] = pontuacao
-        else:
-            # Se o jogador não existe, adiciona a pontuação
-            db[nome] = pontuacao
-
-def exibir_pontuacoes():
-    with shelve.open('pontuacoes.db') as db:
-        # Cria o ranking com base nas pontuações
-        ranking = sorted(db.items(), key=lambda item: item[1], reverse=True)
-        # Imprime o ranking
-        for i, jogador_pontos in enumerate(ranking, start=1):
-            jogador, pontos = jogador_pontos
-            if jogador == nome:
-                rank.append([i,jogador,pontos])
-            else:
-                rank.append([i,jogador,pontos])
 
 # Gerar tela principal
 largura = 700
@@ -77,14 +54,15 @@ fundo_rect = assets['background'].get_rect()
 
 #Carrega sons
 som_fundo = pygame.mixer.Sound('audio/Married Life.mp3')
-som_fundo.set_volume(0.8)
+som_fundo.set_volume(0.5)
 som_estrela = pygame.mixer.Sound('audio/estrela_som.mp3')
-som_estrela.set_volume(0.2) 
+som_estrela.set_volume(0.3) 
 som_balao = pygame.mixer.Sound('audio/balaosom.mp3')
-som_balao.set_volume(0.5) 
+som_balao.set_volume(0.8) 
 som_pegavida = pygame.mixer.Sound('audio/somvida.mp3')
 som_gameover = pygame.mixer.Sound('audio/somgameover.mp3')
 som_gameover.set_volume(0.5)
+som_vida = pygame.mixer.Sound('audio/audiovidaa.mp3')
 
 #Define a tela de início
 def tela_inicio():
@@ -137,14 +115,6 @@ def tela_game_over():
 
         # Desenha a imagem de fundo
         window.blit(assets['gameover'], (0, 0))
-        for x in rank:
-            if x[1] == nome:
-                posicao = x[0]
-                pontuacao = x[2]
-        font = pygame.font.Font(None, 36)
-        text = font.render("{0}º{1}".format(posicao,nome), True, (255, 255, 255))
-        text_rect = text.get_rect(center=(largura / 2, (altura / 2)+150))
-        window.blit(text, text_rect)
         pygame.display.flip()
         clock.tick(FPS)
 
@@ -442,6 +412,7 @@ while game:
 
     # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
     if imune:
+        som_vida.play()
         if tempo_atual - tempo_anterior_imune >= tempo_imunidade:
             imune = False
             contador_estrelas = 0
@@ -646,7 +617,5 @@ while game:
     pygame.display.flip()
 
 pygame.quit()
-
-
 
 

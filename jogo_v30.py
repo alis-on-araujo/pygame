@@ -412,7 +412,6 @@ while game:
 
     # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
     if imune:
-        som_vida.play()
         if tempo_atual - tempo_anterior_imune >= tempo_imunidade:
             imune = False
             contador_estrelas = 0
@@ -429,6 +428,7 @@ while game:
    
     if contador_estrelas >= 5 and contador2 == 0 and contador < 4:
         imune = True
+        som_vida.play()
         tempo_anterior_imune = tempo_atual
         contador2 += 1
         jogador.kill()
@@ -486,7 +486,8 @@ while game:
     hits_2 = pygame.sprite.spritecollide(jogador_balões, todas_estrelas, True)
     
     for hit in hits_2:
-        som_estrela.play()
+        if contador_estrelas < 4:
+            som_estrela.play()
         contador_estrelas += 1
 
     if len(todas_estrelas) == 0:
