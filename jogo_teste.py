@@ -1,69 +1,32 @@
 import pygame
 import random
 from config import YELLOW, WHITE
-import operator
+import shelve
 
 pygame.init()
 pygame.mixer.init()
 
-pontuacoes = []
+def adicionar_pontuacao(nome, pontuacao):
+    with shelve.open('pontuacoes.db') as db:
+        if nome in db:
+            # Se o jogador já existe, atualiza a pontuação se for maior
+            if pontuacao > db[nome]:
+                db[nome] = pontuacao
+        else:
+            # Se o jogador não existe, adiciona a pontuação
+            db[nome] = pontuacao
 
-# Função para ler as pontuações do arquivo
-def ler_pontuacoes():
-    try:
-        with open('pontuacoes.txt', 'r') as file:
-            for line in file:
-                nome, pontuacao = line.strip().split(':')
-                pontuacoes.append((nome, int(pontuacao)))
-    except FileNotFoundError:
-        pass
-
-# Função para escrever as pontuações no arquivo
-def escrever_pontuacoes():
-    with open('pontuacoes.txt', 'w') as file:
-        for pontuacao in pontuacoes:
-            nome, valor = pontuacao
-            file.write(f'{nome}:{valor}\n')
-
-# Função para mostrar o ranking no final do jogo
-def mostrar_ranking():
-    ranking_surface = pygame.Surface((400, 400))
-    ranking_surface.set_alpha(200)
-    ranking_surface.fill((0, 0, 0))
-
-    ranking_rect = ranking_surface.get_rect()
-    ranking_rect.center = (largura // 2, altura // 2)
-
-    ranking_font = pygame.font.SysFont(None, 30)
-
-    titulo_surface = ranking_font.render('RANKING', True, WHITE)
-    titulo_rect = titulo_surface.get_rect()
-    titulo_rect.midtop = (largura // 2, ranking_rect.top + 10)
-    ranking_texto = []
-    for i, pontuacao in enumerate(pontuacoes):
-        texto = f'{i+1}. {pontuacao[0]}: {pontuacao[1]}'
-        ranking_texto.append(texto)
-
-    ranking_surfaces = []
-    for i, texto in enumerate(ranking_texto):
-        ranking_surfaces.append(ranking_font.render(texto, True, WHITE))
-        ranking_surfaces[i].rect = ranking_surfaces[i].get_rect()
-        ranking_surfaces[i].midtop = (largura // 2, titulo_rect.bottom + 20 + (i * 20))
-
-    gameover = True
-    while gameover:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                gameover = False
-
-        window.blit(assets['gameover'], (0, 0))
-        window.blit(ranking_surface, ranking_rect)
-        window.blit(titulo_surface, titulo_rect)
-        for i, surface in enumerate(ranking_surfaces):
-            window.blit(surface, ranking_surfaces[i].rect)
-        pygame.display.flip()
-        clock.tick(FPS)
-
+def exibir_pontuacoes():
+    with shelve.open('pontuacoes.db') as db:
+        # Cria o ranking com base nas pontuações
+        ranking = sorted(db.items(), key=lambda item: item[1], reverse=True)
+        # Imprime o ranking
+        for i, jogador_pontos in enumerate(ranking, start=1):
+            jogador, pontos = jogador_pontos
+            if jogador == nome:
+                rank.append([i,jogador,pontos])
+            else:
+                rank.append([i,jogador,pontos])
 
 # Gerar tela principal
 largura = 700
@@ -174,6 +137,14 @@ def tela_game_over():
 
         # Desenha a imagem de fundo
         window.blit(assets['gameover'], (0, 0))
+        for x in rank:
+            if x[1] == nome:
+                posicao = x[0]
+                pontuacao = x[2]
+        font = pygame.font.Font(None, 36)
+        text = font.render("{0}º{1}".format(posicao,nome), True, (255, 255, 255))
+        text_rect = text.get_rect(center=(largura / 2, (altura / 2)+150))
+        window.blit(text, text_rect)
         pygame.display.flip()
         clock.tick(FPS)
 
@@ -363,7 +334,6 @@ imune = False
 # LOOP PRINCIPAL
 contador_musica = 0
 tela_inicio()
-ler_pontuacoes()
 while game:
     
     while contador_musica == 0:
@@ -392,7 +362,7 @@ while game:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game = False
-            
+        
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 jogador_balões.speedx -= 10
@@ -402,8 +372,6 @@ while game:
                 jogador_balões.speedy -= 6
             if event.key == pygame.K_DOWN:
                 jogador_balões.speedy += 10
-            if event.key == pygame.K_SPACE and contador == 4:
-                game = False
          
 
         if event.type == pygame.KEYUP:
@@ -611,7 +579,7 @@ while game:
         score += 10
         tempo_anterior = tempo_atual
 
-    text_surface = font.render('{:06d}'.format(score), True, WHITE)
+    text_surface = font.render('{:08d}'.format(score), True, WHITE)
 
     text_rect = text_surface.get_rect()
     text_rect.midtop = (largura/2, 30)
@@ -676,20 +644,6 @@ while game:
     score += 10
 
     pygame.display.flip()
-nome_jogador = input("Digite seu nome: ")
-pontuacoes.append((nome_jogador, score))
-
-# Ordena as pontuações em ordem decrescente
-pontuacoes.sort(key=operator.itemgetter(1), reverse=True)
-
-# Mantém apenas as 5 melhores pontuações
-pontuacoes = pontuacoes[:5]
-
-# Salva as pontuações no arquivo
-escrever_pontuacoes()
-
-# Mostra o ranking no final do jogo
-mostrar_ranking()
 
 pygame.quit()
 
