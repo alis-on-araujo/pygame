@@ -62,6 +62,7 @@ som_balao.set_volume(0.8)
 som_pegavida = pygame.mixer.Sound('audio/somvida.mp3')
 som_gameover = pygame.mixer.Sound('audio/somgameover.mp3')
 som_gameover.set_volume(0.5)
+som_vida = pygame.mixer.Sound('audio/audiovidaa.mp3')
 
 #Define a tela de início
 def tela_inicio():
@@ -411,6 +412,7 @@ while game:
 
     # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
     if imune:
+        som_vida.play()
         if tempo_atual - tempo_anterior_imune >= tempo_imunidade:
             imune = False
             contador_estrelas = 0
