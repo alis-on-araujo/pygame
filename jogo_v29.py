@@ -229,23 +229,23 @@ class Estrela(ObjetoMovel):
             self.rect.y = random.randint(-500, -50)
             self.speedy = random.randint(6, 10)
 
-def handle_key_events(event):
+def aperta_botao(event):
     global contador
     if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
-            handle_movement(-10, 0)
+            movimento(-10, 0)
         elif event.key == pygame.K_RIGHT:
-            handle_movement(10, 0)
+            movimento(10, 0)
         elif event.key == pygame.K_UP:
-            handle_movement(0, -6)
+            movimento(0, -6)
         elif event.key == pygame.K_DOWN:
-            handle_movement(0, 10)
+            movimento(0, 10)
             
     elif event.type == pygame.KEYUP:
         if event.key in (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN) and contador <= 3:
-            reset_movement()
+            reset_movimento()
 
-def handle_movement(delta_x, delta_y):
+def movimento(delta_x, delta_y):
     global contador
 
     jogador_baloes.speedx = 0
@@ -269,7 +269,7 @@ def handle_movement(delta_x, delta_y):
         jogador_baloes.speedy += delta_y * 0.4
         jogador.speedy += delta_y * 0.4
 
-def reset_movement():
+def reset_movimento():
     jogador_baloes.speedx = 0
     jogador.speedx = 0
     jogador_baloes.speedy = 0
@@ -346,7 +346,7 @@ while game:
             game = False
         
         if event.type == pygame.KEYDOWN or pygame.KEYUP:
-            handle_key_events(event)
+            aperta_botao(event)
          
             
     jogador.rect.x += jogador.speedx
