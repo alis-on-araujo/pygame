@@ -149,59 +149,6 @@ class Casa(pygame.sprite.Sprite):
                 self.rect.bottom = altura
 
 
-class Balões(pygame.sprite.Sprite):
-    def __init__(self, img):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.centerx = largura / 2
-        self.rect.bottom = altura - 65
-        self.speedx = 0
-        self.speedy = 0
-
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-
-        if contador < 4:
-
-            # Mantem dentro da tela
-            if self.rect.right > largura:
-                self.rect.right = largura
-
-            if self.rect.left < 0:
-                self.rect.left = 0
-
-            if self.rect.top < 0:
-                self.rect.top = 0
-
-            if self.rect.bottom > altura - 55:
-                self.rect.bottom = altura - 55
-        
-class Vidas(pygame.sprite.Sprite):
-    def __init__(self, assets):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = assets['vida_baloes']
-        self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, largura -50)  # Posição x aleatória dentro da largura da tela
-        self.rect.y = random.randint(-500, -50)  # Posição y aleatória acima da tela
-        self.speedx = 0
-        self.speedy = random.randint(6, 10)  # Velocidade vertical aleatória para a estrela cair
-        self.visible = True
-        self.cooldown = False
-
-    def update(self):
-        self.rect.x += self.speedx
-        self.rect.y += self.speedy
-
-        if self.rect.top > altura:  
-            self.rect.x = random.randint(0, largura-50)  
-            self.rect.y = random.randint(-500, -50)  
-            self.speedy = random.randint(6, 10)  
-            self.visible = True
-            self.cooldown = False
-
-
 class Passaro(pygame.sprite.Sprite):
     def __init__(self, asstes):
         pygame.sprite.Sprite.__init__(self)
@@ -222,29 +169,65 @@ class Passaro(pygame.sprite.Sprite):
             self.speedx = random.randint(-10, -6)
             self.speedy = 0
 
-
-class Estrela(pygame.sprite.Sprite):
-    def __init__(self, assets):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = assets['estrela_img']
+class ObjetoMovel(pygame.sprite.Sprite):
+    def __init__(self, img, initial_x, initial_y, initial_speedx, initial_speedy):
+        super().__init__()
+        self.image = img
         self.rect = self.image.get_rect()
-        self.rect.x = random.randint(0, largura -50)  # Posição x aleatória dentro da largura da tela
-        self.rect.y = random.randint(-500, -50)  # Posição y aleatória acima da tela
-        self.speedx = 0
-        self.speedy = random.randint(6, 10)  # Velocidade vertical aleatória para a estrela cair
-       
+        self.rect.x = initial_x
+        self.rect.y = initial_y
+        self.speedx = initial_speedx
+        self.speedy = initial_speedy
 
     def update(self):
         self.rect.x += self.speedx
         self.rect.y += self.speedy
 
-        if self.rect.top > altura:  
-            self.rect.x = random.randint(0, largura-50)  
-            self.rect.y = random.randint(-500, -50)  
-            self.speedy = random.randint(6, 10)  
+
+class Balões(ObjetoMovel):
+    def __init__(self, img):
+        super().__init__(img, (largura/2)- 45 , altura - 65, 0, 0)
+
+    def update(self):
+        super().update()
+        if contador < 4:
+            if self.rect.right > largura:
+                self.rect.right = largura
+            if self.rect.left < 0:
+                self.rect.left = 0
+            if self.rect.top < 0:
+                self.rect.top = 0
+            if self.rect.bottom > altura - 55:
+                self.rect.bottom = altura - 55
+
+
+class Vidas(ObjetoMovel):
+    def __init__(self, assets):
+        super().__init__(assets['vida_baloes'], random.randint(0, largura), random.randint(-500, -50), 0, random.randint(6, 10))
+        self.visible = True
+        self.cooldown = False
+
+    def update(self):
+        super().update()
+        if self.rect.top > altura:
+            self.rect.x = random.randint(0, largura - 50)
+            self.rect.y = random.randint(-500, -50)
+            self.speedy = random.randint(6, 10)
             self.visible = True
             self.cooldown = False
-  
+
+
+class Estrela(ObjetoMovel):
+    def __init__(self, assets):
+        super().__init__(assets['estrela_img'], random.randint(0, largura), random.randint(-500, -50), 0, random.randint(6, 10))
+
+    def update(self):
+        super().update()
+        if self.rect.top > altura:
+            self.rect.x = random.randint(0, largura - 50)
+            self.rect.y = random.randint(-500, -50)
+            self.speedy = random.randint(6, 10)
+
 # Inicia jogo
 game = True
 
@@ -715,7 +698,3 @@ while game:
     pygame.display.flip()
 
 pygame.quit()
-
-
-
-
