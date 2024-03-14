@@ -1,3 +1,4 @@
+import time
 import pygame
 import random
 from config import YELLOW, WHITE
@@ -228,6 +229,53 @@ class Estrela(ObjetoMovel):
             self.rect.y = random.randint(-500, -50)
             self.speedy = random.randint(6, 10)
 
+def handle_key_events(event):
+    global contador
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_LEFT:
+            handle_movement(-10, 0)
+        elif event.key == pygame.K_RIGHT:
+            handle_movement(10, 0)
+        elif event.key == pygame.K_UP:
+            handle_movement(0, -6)
+        elif event.key == pygame.K_DOWN:
+            handle_movement(0, 10)
+            
+    elif event.type == pygame.KEYUP:
+        if event.key in (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN) and contador <= 3:
+            reset_movement()
+
+def handle_movement(delta_x, delta_y):
+    global contador
+
+    jogador_baloes.speedx = 0
+    jogador.speedx = 0
+    jogador_baloes.speedy = 0
+    jogador.speedy = 0
+
+    if contador == 1:
+        jogador_baloes.speedx += delta_x
+        jogador.speedx += delta_x
+        jogador_baloes.speedy += delta_y
+        jogador.speedy += delta_y
+    elif contador == 2:
+        jogador_baloes.speedx += delta_x * 0.6
+        jogador.speedx += delta_x * 0.6
+        jogador_baloes.speedy += delta_y * 0.6
+        jogador.speedy += delta_y * 0.6
+    elif contador == 3:
+        jogador_baloes.speedx += delta_x * 0.4
+        jogador.speedx += delta_x * 0.4
+        jogador_baloes.speedy += delta_y * 0.4
+        jogador.speedy += delta_y * 0.4
+
+def reset_movement():
+    jogador_baloes.speedx = 0
+    jogador.speedx = 0
+    jogador_baloes.speedy = 0
+    jogador.speedy = 0
+
+    
 # Inicia jogo
 game = True
 
@@ -287,8 +335,8 @@ while game:
 
     # Criando 1º balão (balão grande)
     if contador == 0:
-        jogador_balões = Balões(assets['baloes_img1'])
-        todos_sprites.add(jogador_balões)
+        jogador_baloes = Balões(assets['baloes_img1'])
+        todos_sprites.add(jogador_baloes)
 
         contador += 1
 
@@ -297,169 +345,15 @@ while game:
         if event.type == pygame.QUIT:
             game = False
         
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                if contador == 1:
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-                    jogador_balões.speedx -= 10
-                    jogador.speedx -= 10
-
-                if contador == 2:
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-                    jogador_balões.speedx -= 6
-                    jogador.speedx -= 6
-
-                if contador == 3:
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-                    jogador_balões.speedx -= 4
-                    jogador.speedx -= 4
-
-
-            if event.key == pygame.K_RIGHT:
-                if contador == 1:
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-                    jogador_balões.speedx += 10
-                    jogador.speedx += 10
-
-                if contador == 2:
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-                    jogador_balões.speedx += 6
-                    jogador.speedx += 6
-
-                if contador == 3:
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-                    jogador_balões.speedx += 4
-                    jogador.speedx += 4
-
-            if event.key == pygame.K_UP:
-                if contador == 1:
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    jogador_balões.speedy -= 6
-                    jogador.speedy -= 6
-
-                if contador == 2:
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    jogador_balões.speedy -= 4
-                    jogador.speedy -= 4
-
-                if contador == 3:
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    jogador_balões.speedy -= 2
-                    jogador.speedy -= 2
-
-            if event.key == pygame.K_DOWN:
-                if contador == 1:
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    jogador_balões.speedy += 10
-                    jogador.speedy += 10
-
-                if contador == 2:
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    jogador_balões.speedy += 6
-                    jogador.speedy += 6
-
-                if contador == 3:
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    jogador_balões.speedy += 4
-                    jogador.speedy += 4
-            
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                if contador == 1:                    
-                    jogador_balões.speedx += 10
-                    jogador.speedx += 10
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-
-                if contador == 2:
-                    jogador_balões.speedx += 6
-                    jogador.speedx += 6
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-
-                if contador == 3:
-                    jogador_balões.speedx += 4
-                    jogador.speedx += 4
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-
-            if event.key == pygame.K_RIGHT:
-                if contador == 1:
-                    jogador_balões.speedx -= 10
-                    jogador.speedx -= 10
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-
-                if contador == 2:                    
-                    jogador_balões.speedx -= 6
-                    jogador.speedx -= 6
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-
-                if contador == 3:
-                    jogador_balões.speedx -= 4
-                    jogador.speedx -= 4
-                    jogador_balões.speedx = 0
-                    jogador.speedx = 0
-
-            if event.key == pygame.K_UP:
-                if contador == 1:
-                    jogador_balões.speedy += 6
-                    jogador.speedy += 6
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-
-                if contador == 2:
-                    jogador_balões.speedy += 4
-                    jogador.speedy += 4
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-
-                if contador == 3:
-                    jogador_balões.speedy += 2
-                    jogador.speedy += 2
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-
-            if event.key == pygame.K_DOWN:
-                if contador == 1:
-                    jogador_balões.speedy -= 10
-                    jogador.speedy -= 10
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-
-                if contador == 2:
-                    jogador_balões.speedy -= 6
-                    jogador.speedy -= 6
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
-                    
-
-                if contador == 3:
-                    jogador_balões.speedy -= 4
-                    jogador.speedy -= 4
-                    jogador_balões.speedy = 0
-                    jogador.speedy = 0
+        if event.type == pygame.KEYDOWN or pygame.KEYUP:
+            handle_key_events(event)
          
             
     jogador.rect.x += jogador.speedx
     jogador.rect.y += jogador.speedy 
 
-    jogador_balões.rect.x += jogador_balões.speedx
-    jogador_balões.rect.y += jogador_balões.speedy 
+    jogador_baloes.rect.x += jogador_baloes.speedx
+    jogador_baloes.rect.y += jogador_baloes.speedy 
 
     # atualiza
     todos_sprites.update()
@@ -487,7 +381,7 @@ while game:
     
    # Passaros batem no balão se a casa não estiver imune
     if contador_estrelas < 5:
-        hits = pygame.sprite.spritecollide(jogador_balões, todos_passaros, True)
+        hits = pygame.sprite.spritecollide(jogador_baloes, todos_passaros, True)
 
     # Verifica se a casa está imune (se estiver, ficar só por 5 segundos):
     if imune:
@@ -498,10 +392,10 @@ while game:
 
             jogador.kill()
             jogador = Casa(groups, assets['casa_img'])
-            jogador.rect.x = jogador_balões.rect.x
-            jogador.rect.y = jogador_balões.rect.y + 100
-            jogador.speedx = jogador_balões.speedx
-            jogador.speedy = jogador_balões.speedy
+            jogador.rect.x = jogador_baloes.rect.x
+            jogador.rect.y = jogador_baloes.rect.y + 100
+            jogador.speedx = jogador_baloes.speedx
+            jogador.speedy = jogador_baloes.speedy
             todos_sprites.add(jogador)
 
    
@@ -511,10 +405,10 @@ while game:
         contador2 += 1
         jogador.kill()
         jogador = Casa(groups, assets['casa_imune'])
-        jogador.rect.x = jogador_balões.rect.x
-        jogador.rect.y = jogador_balões.rect.y + 100
-        jogador.speedx = jogador_balões.speedx
-        jogador.speedy = jogador_balões.speedy
+        jogador.rect.x = jogador_baloes.rect.x
+        jogador.rect.y = jogador_baloes.rect.y + 100
+        jogador.speedx = jogador_baloes.speedx
+        jogador.speedy = jogador_baloes.speedy
         todos_sprites.add(jogador)
 
         
@@ -530,36 +424,36 @@ while game:
 
 
     if len(hits) > 0 and contador == 1:
-        jogador_balões.kill()
+        jogador_baloes.kill()
         som_balao.play()
-        jogador_balões = Balões(assets['baloes_img2'])
-        jogador_balões.rect.x = casax
-        jogador_balões.rect.y = casay - 100
-        jogador_balões.speedx = jogador.speedx
-        jogador_balões.speedy = jogador.speedy
-        todos_sprites.add(jogador_balões)
+        jogador_baloes = Balões(assets['baloes_img2'])
+        jogador_baloes.rect.x = casax
+        jogador_baloes.rect.y = casay - 100
+        jogador_baloes.speedx = jogador.speedx
+        jogador_baloes.speedy = jogador.speedy
+        todos_sprites.add(jogador_baloes)
         contador += 1
 
     elif len(hits) > 0 and contador == 2:
-        jogador_balões.kill()
+        jogador_baloes.kill()
         som_balao.play()
-        jogador_balões = Balões(assets['baloes_img3'])
-        jogador_balões.rect.x = casax
-        jogador_balões.rect.y = casay - 100
-        jogador_balões.speedx = jogador.speedx
-        jogador_balões.speedy = jogador.speedy
-        todos_sprites.add(jogador_balões)
+        jogador_baloes = Balões(assets['baloes_img3'])
+        jogador_baloes.rect.x = casax
+        jogador_baloes.rect.y = casay - 100
+        jogador_baloes.speedx = jogador.speedx
+        jogador_baloes.speedy = jogador.speedy
+        todos_sprites.add(jogador_baloes)
         contador += 1
 
     elif len(hits) > 0 and contador == 3:
-         jogador_balões.kill()
+         jogador_baloes.kill()
          som_balao.play()
 
          jogador.speedy += 10
          contador += 1
 
 
-    hits_2 = pygame.sprite.spritecollide(jogador_balões, todas_estrelas, True)
+    hits_2 = pygame.sprite.spritecollide(jogador_baloes, todas_estrelas, True)
     
     for hit in hits_2:
         som_estrela.play()
@@ -568,38 +462,38 @@ while game:
     if len(todas_estrelas) == 0:
         pode_cair_estrela = True
 
-    hits_3 = pygame.sprite.spritecollide(jogador_balões, todos_baloes, True)
+    hits_3 = pygame.sprite.spritecollide(jogador_baloes, todos_baloes, True)
 
     for hit in hits_3:
         som_pegavida.play()
         contador -= 1
 
     if len(hits_3) > 0 and contador == 1:
-        jogador_balões.kill()
-        jogador_balões = Balões(assets['baloes_img1'])
-        jogador_balões.rect.x = casax
-        jogador_balões.rect.y = casay - 100
-        jogador_balões.speedx = jogador.speedx
-        jogador_balões.speedy = jogador.speedy
-        todos_sprites.add(jogador_balões)
+        jogador_baloes.kill()
+        jogador_baloes = Balões(assets['baloes_img1'])
+        jogador_baloes.rect.x = casax
+        jogador_baloes.rect.y = casay - 100
+        jogador_baloes.speedx = jogador.speedx
+        jogador_baloes.speedy = jogador.speedy
+        todos_sprites.add(jogador_baloes)
 
     elif len(hits_3) > 0 and contador == 2:
-        jogador_balões.kill()
-        jogador_balões = Balões(assets['baloes_img2'])
-        jogador_balões.rect.x = casax
-        jogador_balões.rect.y = casay - 100
-        jogador_balões.speedx = jogador.speedx
-        jogador_balões.speedy = jogador.speedy
-        todos_sprites.add(jogador_balões)
+        jogador_baloes.kill()
+        jogador_baloes = Balões(assets['baloes_img2'])
+        jogador_baloes.rect.x = casax
+        jogador_baloes.rect.y = casay - 100
+        jogador_baloes.speedx = jogador.speedx
+        jogador_baloes.speedy = jogador.speedy
+        todos_sprites.add(jogador_baloes)
 
     elif len(hits_3) > 0 and contador == 0:
-        jogador_balões.kill()
-        jogador_balões = Balões(assets['baloes_img1'])
-        jogador_balões.rect.x = casax
-        jogador_balões.rect.y = casay - 100
-        jogador_balões.speedx = jogador.speedx
-        jogador_balões.speedy = jogador.speedy
-        todos_sprites.add(jogador_balões)
+        jogador_baloes.kill()
+        jogador_baloes = Balões(assets['baloes_img1'])
+        jogador_baloes.rect.x = casax
+        jogador_baloes.rect.y = casay - 100
+        jogador_baloes.speedx = jogador.speedx
+        jogador_baloes.speedy = jogador.speedy
+        todos_sprites.add(jogador_baloes)
 
         contador += 1
 
