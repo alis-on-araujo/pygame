@@ -231,7 +231,12 @@ class Estrela(ObjetoMovel):
 
 def aperta_botao(event):
     global contador
-    if event.type == pygame.KEYDOWN:
+
+    if contador > 3:
+        jogador_baloes.speedy = 7
+        jogador.speedy = 7
+
+    elif event.type == pygame.KEYDOWN:
         if event.key == pygame.K_LEFT:
             movimento(-10, 0)
         elif event.key == pygame.K_RIGHT:
@@ -240,11 +245,11 @@ def aperta_botao(event):
             movimento(0, -6)
         elif event.key == pygame.K_DOWN:
             movimento(0, 10)
-            
+
     elif event.type == pygame.KEYUP:
         if event.key in (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN) and contador <= 3:
             reset_movimento()
-
+        
 def movimento(delta_x, delta_y):
     global contador
 
